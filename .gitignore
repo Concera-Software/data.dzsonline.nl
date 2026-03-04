@@ -100,3 +100,7 @@ $RECYCLE.BIN/
 # codebase and copy over code snippets, but should not be committed to the repository.
 #
 _aino
+
+# Exclude .csv-files, these are used during development to import data, but should not be committed
+# to the repository.
+*.csv
