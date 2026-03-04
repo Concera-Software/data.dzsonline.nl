@@ -37,10 +37,457 @@
 		private $ZaaldienstTeams;
 		private $Leidingen;
 
+		/**
+		 * Array containing the CREATE TABLE-statements (based on a structure dump from the
+		 * old database in Aino), which will be used to check if the tables exists and, if
+		 * not, create them.
+		 *
+		 * @var array
+		 */
+		private $_tableCreateStatements = [
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Import`
+			// --
+			'dzs_Import' => "CREATE TABLE IF NOT EXISTS `dzs_Import` (
+				`Id` int(11) NOT NULL AUTO_INCREMENT,
+				`File` longblob NOT NULL,
+				`FileName` varchar(255) NOT NULL,
+				`Omschrijving` varchar(100) NOT NULL DEFAULT '',
+				`Date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00', 
+				`GeimporteerdOp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+				`GeuploadOp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+				`Online` tinyint(1) NOT NULL DEFAULT '0',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`Id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Klassen`
+			// --
+			'dzs_Klassen' => "CREATE TABLE IF NOT EXISTS `dzs_Klassen` (
+				`KlasseId` int(11) NOT NULL AUTO_INCREMENT,
+				`Klasse` varchar(50) NOT NULL DEFAULT '',
+				`Online` tinyint(1) NOT NULL DEFAULT '1',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`KlasseId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Leiding`
+			// --
+			'dzs_Leiding' => "CREATE TABLE IF NOT EXISTS `dzs_Leiding` (
+				`LeidingId` int(11) NOT NULL AUTO_INCREMENT,
+				`Leiding` varchar(100) NOT NULL DEFAULT '',
+				`Online` tinyint(1) NOT NULL DEFAULT '1',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`LeidingId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Sponsors`
+			// --
+			'dzs_Sponsors' => "CREATE TABLE IF NOT EXISTS `dzs_Sponsors` (
+				`Id` int(11) NOT NULL AUTO_INCREMENT,
+				`Sponsor` varchar(100) NOT NULL DEFAULT '',
+				`Website` varchar(100) NOT NULL DEFAULT '',
+				`Online` tinyint(1) NOT NULL DEFAULT '0',
+				`Publish` tinyint(1) NOT NULL,
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`Id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Standen`
+			// --
+			'dzs_Standen' => "CREATE TABLE IF NOT EXISTS `dzs_Standen` (
+				`TeamId` int(11) NOT NULL DEFAULT '0',
+				`WedstrijdId` int(11) NOT NULL DEFAULT '0',
+				`Punten` int(1) NOT NULL DEFAULT '0',
+				`Voor` int(2) NOT NULL DEFAULT '0',
+				`Tegen` int(2) NOT NULL DEFAULT '0',
+				`Gewonnen` tinyint(1) NOT NULL DEFAULT '0',
+				`Gelijk` tinyint(1) NOT NULL DEFAULT '0',
+				`Verloren` tinyint(1) NOT NULL DEFAULT '0',
+				`Online` tinyint(1) NOT NULL DEFAULT '0',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`TeamId`,`WedstrijdId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_standen`
+			// --
+			'dzs_standen' => "CREATE TABLE IF NOT EXISTS `dzs_standen` (
+				`Id` int(11) NOT NULL AUTO_INCREMENT,
+				`Team` varchar(50) NOT NULL DEFAULT '',
+				`Klasse` varchar(50) NOT NULL DEFAULT '',
+				`Punten` int(6) NOT NULL DEFAULT '0',
+				`Voor` int(6) NOT NULL DEFAULT '0',
+				`Tegen` int(6) NOT NULL DEFAULT '0',
+				`Online` tinyint(1) NOT NULL DEFAULT '0',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`Id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Teams`
+			// --
+			'dzs_Teams' => "CREATE TABLE IF NOT EXISTS `dzs_Teams` (
+				`TeamId` int(11) NOT NULL AUTO_INCREMENT,
+				`Team` varchar(100) NOT NULL DEFAULT '',
+				`Tekst` text NULL DEFAULT NULL,
+				`Hash` varchar(255) NOT NULL DEFAULT '',
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`KlasseId` int(11) NOT NULL DEFAULT '0',
+				`Online` tinyint(1) NOT NULL DEFAULT '1',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`TeamId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_uitslagen`
+			// --
+			'dzs_uitslagen' => "CREATE TABLE IF NOT EXISTS `dzs_uitslagen` (
+				`idUitslag` int(11) NOT NULL AUTO_INCREMENT,
+				`Datum` varchar(10) NOT NULL DEFAULT '',
+				`Klasse` varchar(50) NOT NULL DEFAULT '',
+				`TeamA` varchar(50) NOT NULL DEFAULT '',
+				`TeamB` varchar(50) NOT NULL DEFAULT '',
+				`PuntenTeamA` varchar(10) NOT NULL DEFAULT '',
+				`PuntenTeamB` varchar(10) NOT NULL DEFAULT '',
+				`Online` tinyint(1) NOT NULL DEFAULT '0',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`idUitslag`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Wedstrijden`
+			// --
+			'dzs_Wedstrijden' => "CREATE TABLE IF NOT EXISTS `dzs_Wedstrijden` (
+				`WedstrijdId` int(11) NOT NULL AUTO_INCREMENT,
+				`ZaalId` int(11) NOT NULL DEFAULT '0',
+				`Datum` date NOT NULL DEFAULT '0000-00-00',
+				`Tijd` time NOT NULL DEFAULT '00:00:00',
+				`KlasseId` int(11) NOT NULL DEFAULT '0',
+				`TeamIdThuis` int(11) NOT NULL DEFAULT '0',
+				`TeamIdUit` int(11) NOT NULL DEFAULT '0',
+				`TeamsZaalDienst` varchar(255) NOT NULL,
+				`TeamIdZaaldienst_01` int(11) NOT NULL,
+				`TeamIdZaaldienst_02` int(11) NOT NULL,
+				`TeamIdZaaldienst_03` int(11) NOT NULL,
+				`TeamIdZaaldienst_04` int(11) NOT NULL,
+				`TeamIdZaaldienst_05` int(11) NOT NULL,
+				`TeamIdZaaldienst` int(11) NOT NULL DEFAULT '0',
+				`DoelpuntenTeamThuis` int(5) NOT NULL DEFAULT '-1',
+				`DoelpuntenTeamUit` int(5) NOT NULL DEFAULT '-1',
+				`Online` tinyint(1) NOT NULL DEFAULT '1',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`WedstrijdId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_WedstrijdLeidingen`
+			// --
+			'dzs_WedstrijdLeidingen' => "CREATE TABLE IF NOT EXISTS `dzs_WedstrijdLeidingen` (
+				`WedstrijdId` int(11) NOT NULL DEFAULT '0',
+				`LeidingId` int(11) NOT NULL DEFAULT '0',
+				`Online` tinyint(1) NOT NULL DEFAULT '1',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`WedstrijdId`,`LeidingId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+
+			// -- --------------------------------------------------------
+
+			// --
+			// -- Tabelstructuur voor tabel `dzs_Zalen`
+			// --
+			'dzs_Zalen' => "CREATE TABLE IF NOT EXISTS `dzs_Zalen` (
+				`ZaalId` int(11) NOT NULL AUTO_INCREMENT,
+				`Zaal` varchar(100) NOT NULL DEFAULT '',
+				`Online` tinyint(1) NOT NULL DEFAULT '1',
+				`Publish` tinyint(1) NOT NULL,
+				`Archive` tinyint(1) NOT NULL DEFAULT '0',
+				`Locked` tinyint(1) NOT NULL DEFAULT '0',
+				`Removed` tinyint(1) NOT NULL,
+				`Scheduled` tinyint(1) NOT NULL,
+				`ScheduleActive` tinyint(1) NOT NULL,
+				`Rating` float(10,2) NOT NULL,
+				`ReadOnly` tinyint(1) NOT NULL,
+				`Private` tinyint(1) NOT NULL,
+				`Marker` int(5) NOT NULL,
+				`Hidden` tinyint(1) NOT NULL,
+				`System` tinyint(1) NOT NULL,
+				`Hash` varchar(50) NOT NULL,
+				`Languages` tinyint(1) NOT NULL,
+				`RecordOwner` int(11) NOT NULL,
+				`RecordGroup` int(11) NOT NULL,
+				`MicroTime` bigint(20) NOT NULL DEFAULT '0',
+				`ValidFrom` datetime NOT NULL,
+				`ValidTill` datetime NOT NULL,
+				`Parent` int(11) NOT NULL,
+				`Ranking` float(10,2) NOT NULL,
+				`ID_Language` int(11) NOT NULL,
+				`ID_Portal` int(11) NOT NULL,
+				`ApplicationTag` varchar(20) NOT NULL,
+				PRIMARY KEY (`ZaalId`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
+		];
+
 		public function __construct(mysqliConnection $mysqliConnection)
 		{
 			$this->_mysqliConnection = $mysqliConnection;
 
+			// When constructing the dzs_import-class, call method _checkTables in order
+			// to check all tables from the $this->_tableCreateStatements array and (if
+			// not exists), create the table into the database.
+			// 
+			$this->_checkTables();
+			
 			$this->Zalen = array();
 			$this->Klassen = array();
 			$this->Teams = array();
@@ -76,6 +523,100 @@
 		{
 			$value = $this->_getEmptyValue($value,$regexp);
 			return empty($value);
+		}
+
+		/**
+		 * Loops through the keys in array $this->_tableCreateStatements and checks if the
+		 * table exists or not. If not, method _createTable will be called in order to
+		 * create the table, based on the dumped table-structure from the old Aino-database.
+		 * This way, when implementing this script somewhere and starting the import, when
+		 * no tables are found in the database, they will be automatically created so it's
+		 * always possible to import, even if the database if empty.
+		 *
+		 * @return void
+		 */
+		private function _checkTables()
+		{
+			foreach(array_keys($this->_tableCreateStatements) as $tableName)
+			{
+				if( !$this->_mysqliConnection->tableExists($tableName) )
+				{
+					if(!$this->_createTable($tableName))
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		/**
+		 * Mutatets the given CREATE TABLE-statement in order to be compatible with newer
+		 * versions of MySQL. For example, fields/columns of type INT or FLOAT without a
+		 * default value where valid in the old database (MySQL 5.5?), but will fail on
+		 * newer versions when inserting rows without a value.
+		 *
+		 * So instead of line:
+		 *   " `Publish` tinyint(1) NOT NULL "
+		 * or line:
+		 *   " `ValidFrom` datetime NOT NULL, "
+		 *
+		 * We need lines:
+		 *   " `Publish` tinyint(1) NOT NULL DEFAULT 0 "
+		 * or line:
+		 *   " `ValidFrom` datetime NOT NULL DEFAULT '1970-01-01 00:00:00, "
+		 *
+		 * in our CREATE TABLE-statement to be compatible with the newer versions of MySQL.
+		 *
+		 * @param string $createStatement  The original CREATE TABLE-statement from the
+		 *                                 dump of the database.
+		 * @return string                  The modified version of the CREATE TABLE-
+		 *                                 statement.
+		 */
+		private function _fixCreateTableStatement(string $createStatement) : string
+		{
+			$createStatement = str_replace("DEFAULT '0000-00-00 00:00:00'", "DEFAULT '1970-01-01 00:00:00'", $createStatement);
+			$createStatement = str_replace("DEFAULT '0000-00-00'", "DEFAULT '1970-01-01'", $createStatement);
+			$createStatement = str_replace("DEFAULT '00:00:00'", "DEFAULT '00:00:01'", $createStatement);
+			
+			$createStatement = preg_replace("/ varchar\(([0-9]+)\) NOT NULL,/i", "VARCHAR($1) NOT NULL DEFAULT '',", $createStatement);
+			$createStatement = preg_replace("/ text NOT NULL,/i", " TEXT NOT NULL DEFAULT '',", $createStatement);
+			$createStatement = preg_replace("/ datetime NOT NULL,/i", "DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',", $createStatement);
+			$createStatement = preg_replace("/ int\(([0-9]+)\) NOT NULL,/i", "INT($1) NOT NULL DEFAULT 0,", $createStatement);
+			$createStatement = preg_replace("/ tinyint\(([0-9]+)\) NOT NULL,/i", "TINYINT($1) NOT NULL DEFAULT 0,", $createStatement);
+			$createStatement = preg_replace("/ float\(([0-9]+),([0-9]+)\) NOT NULL,/i", "FLOAT($1,$2) NOT NULL DEFAULT 0.00,", $createStatement);
+
+			//
+			return $createStatement;
+		}
+
+		/**
+		 * Creates the table based on the specified name and the CREATE TABLE-statement from
+		 * the $this->_tableCreateStatements array. Because the old database, on MySQL 5.5?
+		 * has some invalid configurations for newer databases, method
+		 * _fixCreateTableStatement will be called in order to mutate the statement and
+		 * make is compatible with newer versions of MySQL.
+		 *
+		 * @param string $tableName
+		 * @return boolean
+		 */
+		private function _createTable(string $tableName) : bool
+		{
+			$createStatement = $this->_tableCreateStatements[$tableName] ?? '';
+			if ($createStatement == '')
+			{
+				return false;
+			}
+
+			$createStatement = $this->_fixCreateTableStatement($createStatement);
+			if($this->_mysqliConnection->executeQuery($createStatement, __METHOD__."@".__LINE__) === false)
+			{
+				throw new Exception("Failed to create table $tableName: " . $this->_mysqliConnection->error);
+				return false;
+			}
+			
+			return true;
 		}
 		
 		function getZaalId($Zaal)
@@ -501,7 +1042,7 @@
 									}
 								}
 									*/
-							}		
+							}
 						}
 					}
 				}
