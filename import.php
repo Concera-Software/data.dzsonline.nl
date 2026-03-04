@@ -769,7 +769,7 @@
 					}
 				}
 			}
-		}		
+		}
 		
 		function getLeidingId($Leiding)
 		{
@@ -1090,6 +1090,43 @@
 
 			return true;
 		}
+
+		/**
+		 * Count the amount of klassen, leidingen, standen, teams, wedstrijden and zalen in
+		 * the database. Will/can be used at the end of the import to check/verify/report
+		 * the imported data.
+		 *
+		 * @return array
+		 */
+		function countData() : array
+		{
+			$sqlQuery = "SELECT COUNT(*) AS Total FROM dzs_Klassen";
+			$totalKlassen = $this->_mysqliConnection->safeExecuteQueryAndReturn("Total", $sqlQuery, [], __METHOD__."@".__LINE__);
+
+			$sqlQuery = "SELECT COUNT(*) AS Total FROM dzs_Leiding";
+			$totalLeidingen = $this->_mysqliConnection->safeExecuteQueryAndReturn("Total", $sqlQuery, [], __METHOD__."@".__LINE__);
+
+			$sqlQuery = "SELECT COUNT(*) AS Total FROM dzs_Standen";
+			$totalStanden = $this->_mysqliConnection->safeExecuteQueryAndReturn("Total", $sqlQuery, [], __METHOD__."@".__LINE__);
+
+			$sqlQuery = "SELECT COUNT(*) AS Total FROM dzs_Teams";
+			$totalTeams = $this->_mysqliConnection->safeExecuteQueryAndReturn("Total", $sqlQuery, [], __METHOD__."@".__LINE__);
+
+			$sqlQuery = "SELECT COUNT(*) AS Total FROM dzs_Wedstrijden";
+			$totalWedstrijden = $this->_mysqliConnection->safeExecuteQueryAndReturn("Total", $sqlQuery, [], __METHOD__."@".__LINE__);
+
+			$sqlQuery = "SELECT COUNT(*) AS Total FROM dzs_Zalen";
+			$totalZalen = $this->_mysqliConnection->safeExecuteQueryAndReturn("Total", $sqlQuery, [], __METHOD__."@".__LINE__);
+
+			return [
+				"Klassen" => $totalKlassen,
+				"Leidingen" => $totalLeidingen,
+				"Standen" => $totalStanden,
+				"Teams" => $totalTeams,
+				"Wedstrijden" => $totalWedstrijden,
+				"Zalen" => $totalZalen,
+			];
+		}
 	}
 
 	// Include the MySQLi class, create an instance of the dzs_import class and call method
@@ -1099,5 +1136,14 @@
 	$dzsImport = new dzs_import($mysqliConnection);
 	if($dzsImport->Import('koos10.csv'))
 	{
-		print 'Done!';
+		// When the import is done, generate a small report.
+		//
+		print "<h1>Import gelukt!</h1><hr>";
+		print "Overzicht van geïmporteerde gegevens:<br><ul>";
+		$count = $dzsImport->countData();
+		foreach($count as $key => $value)
+		{
+			print "<li>".$key.": ".$value."</li>";
+		}
+		print "</ul>";
 	}
