@@ -630,6 +630,6 @@
 		($mysqliConfig['host']??'127.0.0.1'),
 		$mysqliConfig['username'],
 		$mysqliConfig['password'],
-		$mysqliConfig['password'],
+		$mysqliConfig['database'],
 		($mysqliConfig['charset']??'utf8mb4'),
 	);
