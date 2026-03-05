@@ -325,8 +325,8 @@
 				`Klasse` varchar(50) NOT NULL DEFAULT '',
 				`TeamA` varchar(50) NOT NULL DEFAULT '',
 				`TeamB` varchar(50) NOT NULL DEFAULT '',
-				`PuntenTeamA` varchar(10) NOT NULL DEFAULT '',
-				`PuntenTeamB` varchar(10) NOT NULL DEFAULT '',
+				`PuntenTeamA` varchar(10) NOT NULL DEFAULT '-1',
+				`PuntenTeamB` varchar(10) NOT NULL DEFAULT '-1',
 				`Online` tinyint(1) NOT NULL DEFAULT '0',
 				`Publish` tinyint(1) NOT NULL,
 				`Archive` tinyint(1) NOT NULL DEFAULT '0',
@@ -912,8 +912,8 @@
 							$TeamUit = $this->correctTeamName($data[7]);
 							$TeamsZaalDienst = $this->correctTeamName($data[8]);
 							
-							$DoelpuntenTeamThuis = intval($data[9]);
-							$DoelpuntenTeamUit = intval($data[10]);
+							$DoelpuntenTeamThuis = ((trim($data[9])!='')?intval($data[9]):-1);
+							$DoelpuntenTeamUit = ((trim($data[10])!='')?intval($data[10]):-1);
 							
 							$ZaalId = $this->getZaalId($Zaal);
 							$KlasseId = $this->getKlasseId($Klasse);
