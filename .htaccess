@@ -1,0 +1,23 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+
+	# Enable Apache RewriteEngine (if module is available)
+	#
+	Options +FollowSymlinks
+	RewriteEngine On
+
+	# Rewrite /(.*/|)<dataType>.json to /api.php?_fetch=<dataType>
+	# This rule handles URL's that ends on .json, then captures the name of the 'file' and
+	# passes it onto variable _fetch using $2, when redirecting to api.php.
+	#
+	# For example:
+	#  - When standen.json is called, the URL will be redirected to api.php?_fetch=standen
+	#  - When teams.json is called, the URL will be redirected to api.php?_fetch=teams
+	#  - When uitslagen.json is called, the URL will be redirected to api.php?_fetch=uitslagen
+	#  - When wedstrijden.json is called, the URL will be redirected to api.php?_fetch=wedstrijden
+	# and so on.
+	#
+	RewriteRule ^(.*/|)(.*).json$ api.php?_fetch=$2 [QSA,NC,L]
+
+</IfModule>
