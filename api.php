@@ -37,11 +37,15 @@
 		die();
 	}
 
+	$requestMethod = strtoupper($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']??'');
+	$origin = strtolower($_SERVER['HTTP_ORIGIN']??'');
+	$originHost = parse_url($origin, PHP_URL_HOST);
+
 	// Check if the REQUEST METHOD is set to 'OPTIONS'. If so, go respond to preflight request
 	// by replying CORS (Cross Origin Resource Sharing) OPTIONS request.
 	//
 	if (isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] === 'OPTIONS'))
-	{	
+	{
 		// Specify which methods are allowed. In this case, we'll only allow GET requests.
 		//
 		$allowedMethods = [
@@ -53,12 +57,9 @@
 		$allowedHosts = [
 			'dzsonline.nl',
 			'data.dzsonline.nl',
+			'dzsonline.limecreations.nl',
 			'192.168.205.110',
 		];
-
-		$requestMethod = strtoupper($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']??'');
-		$origin = strtolower($_SERVER['HTTP_ORIGIN']??'');
-		$originHost = parse_url($origin, PHP_URL_HOST);
 
 		// When no request method was found or the request method in the preflight request
 		// is not found in the list with allowed methods, return a 405 Method Not Allowed
@@ -654,9 +655,13 @@
 	// When ending up here, everything went ok. The request was valid, a connection to the
 	// database is established, we were able to fetch data from the dzs_api class based on the
 	// requested data and converted it to a JSON string. Return a 200 Ok, set the content type
-	// of the request to json, output the contents and terminate the script.
+	// of the request to json, set the headers of our CORS policy so browsers are able to handle
+	// the request, output the contents and terminate the script.
 	//
 	http_response_code(200); // Ok
 	header('Content-Type: application/json; charset=utf-8');
+	header('Access-Control-Allow-Methods: ' . $requestMethod);
+	header('Access-Control-Allow-Origin: ' . $origin);
+
 	print $json;
 	die();
