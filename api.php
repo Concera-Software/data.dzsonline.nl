@@ -455,8 +455,8 @@
 			while($record = $result->fetch_object())
 			{
 				$wedstrijdDag = [
-					'name' => $record->Datum,
-					'value' => substr($record->Datum, 8,2)."-".substr($record->Datum, 5,2)."-".substr($record->Datum, 0,4)
+					'value' => $record->Datum,
+					'name' => substr($record->Datum, 8,2)."-".substr($record->Datum, 5,2)."-".substr($record->Datum, 0,4)
 				];
 
 				$this->_addToDataArray($wedstrijdDagen, $wedstrijdDag);
