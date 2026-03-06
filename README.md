@@ -65,28 +65,28 @@ https://data.dzsonline.nl/import.php
 **Summary of upcomming matches on the homepage**
 
 ```html
-<dzs-wedstrijden display='summary' status='gespeeld' limit='15'> </dzs-wedstrijden>
+<dzs-wedstrijden display='summary' status='programma' limit='15'> </dzs-wedstrijden>
 ```
 <img width="366" height="480" alt="image" src="https://github.com/user-attachments/assets/be80cf82-f03f-411c-bf95-ef55cd8e1eba" /><br>
 
 **Summary of played matches on the homepage**
 
 ```html
-<dzs-wedstrijden display='summary' status='gepland' limit='15'> </dzs-wedstrijden>
+<dzs-wedstrijden display='summary' status='uitslagen' limit='15'> </dzs-wedstrijden>
 ```
 
 <img width="364" height="481" alt="image" src="https://github.com/user-attachments/assets/2c2b091c-8aaf-4ffd-97ee-f7c8503fd1f2" /><br>
 
 **Overview of all upcomming matches** (including filters):
 ```html
-<dzs-wedstrijden display='overview' status='gepland'> </dzs-wedstrijden>
+<dzs-wedstrijden display='overview' status='programma'> </dzs-wedstrijden>
 ```
 
 <img width="1083" height="1031" alt="image" src="https://github.com/user-attachments/assets/e0c48a74-af57-4471-9db8-ef6964fda0dd" /><br>
 
 **Overview of all played matches** (including filters):
 ```html
-<dzs-wedstrijden display='overview' status='gespeeld'> </dzs-wedstrijden>
+<dzs-wedstrijden display='overview' status='uitslagen'> </dzs-wedstrijden>
 ```
 
 <img width="1086" height="1048" alt="image" src="https://github.com/user-attachments/assets/9167aae9-dd5b-4c31-a3d8-ce64d83c2382" />
