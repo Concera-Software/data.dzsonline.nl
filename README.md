@@ -8,7 +8,7 @@ https://data.dzsonline.nl/import.php
 
 **Include JavaScript:**
 ```html
-<script src='dzs-webcomponents.js' type='text/javascript'></script>
+<script src='//data.dzsonline.nl/dzs-webcomponents.js' type='text/javascript'></script>
 ```
 
 ### Standings/teams:
