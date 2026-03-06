@@ -389,12 +389,14 @@
 			$result = $this->_mysqliConnection->ExecuteQuery($sqlQuery, __METHOD__.'@'.__FILE__.'#'.__LINE__);
 			
 			$pos = 0;
+			$handledTeamIds = [];
 			while($record = $result->fetch_object())
 			{	
 				$team = [
 					'id' => intval($record->TeamId),
 					'name' => $record->Team,
 				];
+				$handledTeamIds[] = intval($record->TeamId);
 
 				if($withStanden)
 				{
@@ -409,6 +411,54 @@
 				}
 
 				$this->_addToDataArray($teams, $team);
+			}
+
+			// Go select the 'missing' teams without statistics. This is nessecary
+			// because klasses like '3A', '3B', '4A' and '4B' are having teams called
+			// '3e klas nr9' and '4e klas nr4', which are not actual teams, only names
+			// used in upcomming games. These teams won't have a score when the game is
+			// not played yet. To prevent these teams from being excluded from the
+			// result, we'll add them as well, but with empty standings.
+			//
+			if($withStanden)
+			{
+				$sqlQuery = "SELECT "
+					. " `dzs_Teams`.`TeamId` "
+					. " , `dzs_Teams`.`Team` "
+
+				. " FROM "
+					. " `dzs_Teams` "
+
+				. " WHERE "
+					. " `dzs_Teams`.`Online`='1' "
+					. " AND `dzs_Teams`.`Team` != '' "
+					. (($klasseid>0)?" AND `dzs_Teams`.`KlasseId` = '".$klasseid."'":"")
+
+				. " ORDER BY "
+					. " `dzs_Teams`.`Team`";
+
+				$result = $this->_mysqliConnection->ExecuteQuery($sqlQuery, __METHOD__.'@'.__FILE__.'#'.__LINE__);
+				while($record = $result->fetch_object())
+				{
+					if(!in_array(intval($record->TeamId), $handledTeamIds))
+					{
+						$team = [
+							'id' => intval($record->TeamId),
+							'name' => $record->Team,
+							'positie' => null,
+							'gespeeld' => null,
+							'gewonnen' => null,
+							'gelijk' => null,
+							'verloren' => null,
+							'punten' => null,
+							'puntenVoor' => null,
+							'puntenTegen' => null
+						];
+						$handledTeamIds[] = intval($record->TeamId);
+
+						$this->_addToDataArray($teams, $team);
+					}
+				}
 			}
 
 			return $this->_finishDataArray($teams);
