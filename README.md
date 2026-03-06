@@ -82,11 +82,12 @@ https://data.dzsonline.nl/import.php
 <dzs-wedstrijden display='overview' status='programma'> </dzs-wedstrijden>
 ```
 
-<img width="1083" height="1031" alt="image" src="https://github.com/user-attachments/assets/e0c48a74-af57-4471-9db8-ef6964fda0dd" /><br>
+<img width="1692" height="1604" alt="image" src="https://github.com/user-attachments/assets/1b182ad5-7e09-4efc-9265-b36f5b75854f" />
+
 
 **Overview of all played matches** (including filters):
 ```html
 <dzs-wedstrijden display='overview' status='uitslagen'> </dzs-wedstrijden>
 ```
 
-<img width="1086" height="1048" alt="image" src="https://github.com/user-attachments/assets/9167aae9-dd5b-4c31-a3d8-ce64d83c2382" />
+<img width="1690" height="1569" alt="image" src="https://github.com/user-attachments/assets/46294d4a-548c-40c2-a204-0f9304b4bced" />
