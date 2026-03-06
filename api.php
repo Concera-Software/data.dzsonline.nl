@@ -4,13 +4,22 @@
 	 * -- FILEDESCRIPTION:
 	 *
 	 * This file is a simple version of an API, used to fetch data like 'standen', 'teams',
-	 * 'uitslagen' and 'wedstrijden' from the tables...
+	 * 'uitslagen' and 'wedstrijden' from the tables... The data will be available on the
+	 * following URL's:
 	 *
-	 *  - http://192.168.205.110/dzsonline/programma.json - Geplande wedstrijden
-	 *  - http://192.168.205.110/dzsonline/standen.json - Alle klasses + teams + stand
-	 *  - http://192.168.205.110/dzsonline/teams.json - Alle klasses + teams
-	 *  - http://192.168.205.110/dzsonline/uitslagen.json - Gespeelde wedstrijden
-	 *  - http://192.168.205.110/dzsonline/wedstrijden.json - Alle wedstrijden
+	 *  - https://data.dzsonline.nl/programma.json - Geplande wedstrijden
+	 *  - https://data.dzsonline.nl/standen.json - Alle klasses + teams + stand
+	 *  - https://data.dzsonline.nl/teams.json - Alle klasses + teams
+	 *  - https://data.dzsonline.nl/uitslagen.json - Gespeelde wedstrijden
+	 *  - https://data.dzsonline.nl/wedstrijden.json - Alle wedstrijden
+	 *
+	 * Because a lot of data overlaps with each other, (for example standen.json includes the
+	 * same teams as teams.json, but not sorted on standing/positon and programma.json is the
+	 * same as wedstrijden.json, but only contains the upcomming/schedules wedstrijden, not the
+	 * played/completed ones... and also contains a list of teams, like teams.json), all data
+	 * can also be fetched using the URL below, which contains ALL data at once:
+	 *
+	 *  - https://data.dzsonline.nl/data.json - Everything together
 	 */
 
 	// Enable strict types (must be the very first statement in the script) and error reporting
@@ -607,27 +616,6 @@
 			
 			while($record = $result->fetch_object())
 			{	
-				// When no 'wedstrijdStatus' is specified, go check the data of the
-				// 'wedstijd' to see if it's planned/scheduled (in the future) or
-				// played/completed.
-				//
-				if($wedstrijdStatus === 0)
-				{
-					$date = new DateTime($record->Datum);
-					if($date < $now)
-					{
-						$status = DZS_WEDSTRIJDSTATUS_GESPEELD;
-					}
-					else
-					{
-						$status = DZS_WEDSTRIJDSTATUS_GEPLAND;
-					}
-				}
-				else
-				{
-					$status = $wedstrijdStatus;		
-				}
-
 				$wedstrijd = [
 					'id' => intval($record->WedstrijdId),
 					'idZaal' => $record->ZaalId,
@@ -637,7 +625,6 @@
 					'datumText' => substr($record->Datum, 8,2)."-".str_replace($MaandGetal, $MaandTekst, substr($record->Datum, 5,2)),
 					'tijd' => $record->Tijd,
 					'idTeamThuis' => intval($record->TeamIdThuis),
-					'status' => $status,
 					// 'teamThuis' => $record->TeamnaamThuis,
 					'doelpuntenTeamThuis' => (intval($record->DoelpuntenTeamThuis)>-1?intval($record->DoelpuntenTeamThuis):null),
 					'idTeamUit' => intval($record->TeamIdUit),
