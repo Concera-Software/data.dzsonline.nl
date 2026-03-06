@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src='dzs-webcomponents.js' type='text/javascript'></script>
+	</head>
+	<body>
+
+		<h1>data.dzsonline.nl</h1>
+		<h2>Webcomponents</h2>
+		<h3>Include JavaScript:</h3>
+		<pre>&lt;script src='dzs-webcomponents.js' type='text/javascript'&gt;&lt;/script&gt;</pre><br>
+
+		<h3>Standings/teams:</h3>
+		<h4>Summary on the homepage</h4>
+		<pre>&lt;dzs-standen display='summary'&gt; &lt;/dzs-standen&gt;</pre><br>
+		<dzs-standen display='summary'> </dzs-standen>
+		
+		<h4>Overview standings 1e klasse:</h4>
+		<pre>&lt;dzs-standen display='overview' klasse='1e'&gt; &lt;/dzs-standen&gt;</pre><br>
+		<dzs-standen display='overview' klasse='1e'> </dzs-standen>
+
+		<h4>Overview standings 2e klasse:</h4>
+		<pre>&lt;dzs-standen display='overview' klasse='2e'&gt; &lt;/dzs-standen&gt;</pre><br>
+		<dzs-standen display='overview' klasse='2e'> </dzs-standen>
+
+		<h4>Overview standings 3e klasse:</h4>
+		<pre>&lt;dzs-standen display='overview' klasse='3e'&gt; &lt;/dzs-standen&gt;</pre><br>
+		<dzs-standen display='overview' klasse='3e'> </dzs-standen>
+
+		<h4>Overview standings 4e klasse:</h4>
+		<pre>&lt;dzs-standen display='overview' klasse='4e'&gt; &lt;/dzs-standen&gt;</pre><br>
+		<dzs-standen display='overview' klasse='4e'> </dzs-standen>
+
+		<h4>Overview standings 5e klasse:</h4>
+		<pre>&lt;dzs-standen display='overview' klasse='5e'&gt; &lt;/dzs-standen&gt;</pre><br>
+		<dzs-standen display='overview' klasse='5e'> </dzs-standen>
+
+		<h3>Wedstrijden/programma/uitslagen:</h3>
+		<h4>Summary of upcoming matches on the homepage:</h4>
+		<pre>&lt;dzs-wedstrijden display='summary' status='gepland' limit='15'&gt; &lt;/dzs-wedstrijden&gt;</pre><br>
+		<dzs-wedstrijden display='summary' status='gepland' limit='15'> </dzs-wedstrijden>
+
+		<h4>Summary of played matches on the homepage:</h4>
+		<pre>&lt;dzs-wedstrijden display='summary' status='gespeeld' limit='15'&gt; &lt;/dzs-wedstrijden&gt;</pre><br>
+		<dzs-wedstrijden display='summary' status='gespeeld' limit='15'> </dzs-wedstrijden>
+		
+		<h4>Overview of all upcoming matches<i>(including filters)</i>:</h4>
+		<pre>&lt;dzs-wedstrijden summary='overview' status='gepland'&gt; &lt;/dzs-wedstrijden&gt;</pre><br>
+		<dzs-wedstrijden display='overview' status='gepland'> </dzs-wedstrijden>
+
+		<h4>Overview of all played matches<i>(including filters)</i>:</h4>
+		<pre>&lt;dzs-wedstrijden summary='overview' status='gespeeld'&gt; &lt;/dzs-wedstrijden&gt;</pre><br>
+		<dzs-wedstrijden display='overview' status='gespeeld'> </dzs-wedstrijden>
+
+	</body>
+</html>
