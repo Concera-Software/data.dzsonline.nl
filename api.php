@@ -476,37 +476,26 @@
 		 */
 		private function _getWedstrijden(int $wedstrijdStatus=0) : array
 		{	
+			$now = new DateTime();
 			$wedstrijden = $this->_createDataArray();
 
 			$sqlQuery = " SELECT "
 				. " `dzs_Wedstrijden`.`WedstrijdId` "
 				. " , `dzs_Wedstrijden`.`Datum` "
 				. " , `dzs_Wedstrijden`.`Tijd` "
+				. " , `dzs_Wedstrijden`.`ZaalId` "
+				. " , `dzs_Wedstrijden`.`KlasseId` "
 				. " , `dzs_Wedstrijden`.`TeamIdThuis` "
 				. " , `dzs_Wedstrijden`.`DoelpuntenTeamThuis` "
 				. " , `dzs_Wedstrijden`.`TeamIdUit` "
 				. " , `dzs_Wedstrijden`.`DoelpuntenTeamUit` "
-				. " , `TeamThuis`.`Team` AS `TeamnaamThuis` "
-				. " , `TeamThuis`.`Tekst` AS `TeamtekstThuis` "
-				. " , `TeamUit`.`Team` AS `TeamnaamUit` "
-				. " , `TeamUit`.`Tekst` AS `TeamtekstUit` "
-				. " , `dzs_Zalen`.`Zaal` AS `Zaal` "
-				. " , `dzs_Klassen`.`Klasse` AS `Klasse` "
 
 			.  " FROM "
 				. " `dzs_Wedstrijden` "
 
-			. " LEFT JOIN "
-				. " `dzs_Teams` AS `TeamThuis` ON `dzs_Wedstrijden`.`TeamIdThuis` = `TeamThuis`.`TeamId` "
-
-			. " LEFT JOIN "
-				. " `dzs_Teams` AS `TeamUit` ON `dzs_Wedstrijden`.`TeamIdUit` = `TeamUit`.`TeamId` "
 
 			. " LEFT JOIN "
 				. " `dzs_Zalen` ON `dzs_Wedstrijden`.`ZaalId` = `dzs_Zalen`.`ZaalId` "
-
-			. " LEFT JOIN "
-				. " `dzs_Klassen` ON `dzs_Wedstrijden`.`KlasseId` = `dzs_Klassen`.`KlasseId` "
 
 			. " WHERE "
 				. " `dzs_Wedstrijden`.`Online`='1' ";
@@ -566,20 +555,43 @@
 			$MaandGetal = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 			
 			while($record = $result->fetch_object())
-			{
+			{	
+				// When no 'wedstrijdStatus' is specified, go check the data of the
+				// 'wedstijd' to see if it's planned/scheduled (in the future) or
+				// played/completed.
+				//
+				if($wedstrijdStatus === 0)
+				{
+					$date = new DateTime($record->Datum);
+					if($date < $now)
+					{
+						$status = DZS_WEDSTRIJDSTATUS_GESPEELD;
+					}
+					else
+					{
+						$status = DZS_WEDSTRIJDSTATUS_GEPLAND;
+					}
+				}
+				else
+				{
+					$status = $wedstrijdStatus;		
+				}
+
 				$wedstrijd = [
 					'id' => intval($record->WedstrijdId),
-					'zaal' => $record->Zaal,
-					'klasse' => $record->Klasse,
+					'idZaal' => $record->ZaalId,
+					'idKlasse' => $record->KlasseId,
+					'datumTijd' => $record->Datum.'T'.$record->Tijd,
 					'datum' => substr($record->Datum, 8,2)."-".substr($record->Datum, 5,2)."-".substr($record->Datum, 0,4),
 					'datumText' => substr($record->Datum, 8,2)."-".str_replace($MaandGetal, $MaandTekst, substr($record->Datum, 5,2)),
 					'tijd' => $record->Tijd,
 					'idTeamThuis' => intval($record->TeamIdThuis),
+					'status' => $status,
 					// 'teamThuis' => $record->TeamnaamThuis,
-					'doelpuntenTeamThuis' => intval($record->DoelpuntenTeamThuis),
+					'doelpuntenTeamThuis' => (intval($record->DoelpuntenTeamThuis)>-1?intval($record->DoelpuntenTeamThuis):null),
 					'idTeamUit' => intval($record->TeamIdUit),
 					// 'teamUit' => $record->TeamnaamUit,
-					'doelpuntenTeamUit' => intval($record->DoelpuntenTeamUit),
+					'doelpuntenTeamUit' => (intval($record->DoelpuntenTeamUit)>-1?intval($record->DoelpuntenTeamUit):null),
 					// 'uitslag' => (($record->DoelpuntenTeamThuis > -1 && $record->DoelpuntenTeamUit > -1)?$record->DoelpuntenTeamThuis." - ".$record->DoelpuntenTeamUit:null),
 				];
 
