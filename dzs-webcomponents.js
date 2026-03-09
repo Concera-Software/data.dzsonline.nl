@@ -189,7 +189,48 @@ class dzsStanden extends HTMLElement
 				{
 					background-color: #E6E6E6;
 				}
+				table.teams font.shortText
+				{
+					display: none;
+				}
+				
+				@media (max-width: 750px)
+				{
+					table.teams font.longText
+					{
+						display: none;
+					}
+					
+					table.teams font.shortText
+					{
+						display: block;
+					}
 
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren
+					{
+						display: none;
+					}
+
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 30px !important;
+					}
+				}
+				
+				@media (max-width: 500px)
+				{
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld
+					{
+						display: none;
+					}
+				}
 				.clamp
 				{
 					display: -webkit-box;
@@ -227,18 +268,18 @@ class dzsStanden extends HTMLElement
 				
 				// Get the first ranked team from the klasse
 				//
-				let team = klasse['teams']['data'][0];
-				if(team['punten'] == null)
+				let firstTeam = klasse['teams']['data'][0];
+				if(firstTeam['punten'] == null)
 				{
 					return;
 				}
 
-				template += `<tr id='dzs-team-${team['id']}'>
+				template += `<tr id='dzs-team-${firstTeam['id']}'>
 					<td style='width: 30px'>${klasse['name']}</td>
-					<td><div class="clamp">${team['name']}</div></td>
-					<td style='width: 30px' align="right">${team['puntenVoor']}</td>
-					<td style='width: 30px' align="right">${team['puntenTegen']}</td>
-					<td style='width: 30px' align="right">${team['punten']}</td>
+					<td><div class="clamp">${firstTeam['name']}</div></td>
+					<td style='width: 30px' align="right">${firstTeam['puntenVoor']}</td>
+					<td style='width: 30px' align="right">${firstTeam['puntenTegen']}</td>
+					<td style='width: 30px' align="right">${firstTeam['punten']}</td>
 				</tr>`;
 			});
 		}
@@ -258,13 +299,13 @@ class dzsStanden extends HTMLElement
 						<tr>
 							<th></th>
 							<th>Team</th>
-							<th>Gespeeld</th>
-							<th>Gewonnen</th>
-							<th>Gelijk</th>
-							<th>Verloren</th>
-							<th>Punten</th>
-							<th>Voor</th>
-							<th>Tegen</th>
+							<th class='gespeeld'>Gespeeld</th>
+							<th class='gewonnen'>Gewonnen</th>
+							<th class='gelijk'>Gelijk</th>
+							<th class='verloren'>Verloren</th>
+							<th class='points'><font class='shortText'>+</font><font class='longText'>Voor</font></th>
+							<th class='points'><font class='shortText'>-</font><font class='longText'>Tegen</font></th>
+							<th class='points'><font class='shortText'>Pt.</font><font class='longText'>Punten</font></th>
 						</tr>
 					</thead>
 					<tbody>`;
@@ -272,14 +313,14 @@ class dzsStanden extends HTMLElement
 					klasse['teams']['data'].forEach(team => {
 						template += `<tr id='dzs-team-${team['id']}'>
 							<td style='width: 30px'>${team['positie']}</td>
-							<td>${team['name']}</td>
-							<td style='width: 75px' align="center">${team['gespeeld']}</td>
-							<td style='width: 75px' align="center">${team['gewonnen']}</td>
-							<td style='width: 75px' align="center">${team['gelijk']}</td>
-							<td style='width: 75px' align="center">${team['verloren']}</td>
-							<td style='width: 75px' align="center">${team['punten']}</td>
-							<td style='width: 75px' align="center">${team['puntenVoor']}</td>
-							<td style='width: 75px' align="center">${team['puntenTegen']}</td>
+							<td><div class="clamp">${team['name']}</div></td>
+							<td class='gespeeld' style='width: 75px' align="center">${team['gespeeld']}</td>
+							<td class='gewonnen' style='width: 75px' align="center">${team['gewonnen']}</td>
+							<td class='gelijk' style='width: 75px' align="center">${team['gelijk']}</td>
+							<td class='verloren' style='width: 75px' align="center">${team['verloren']}</td>
+							<td class='points' style='width: 75px' align="center">${team['puntenVoor']}</td>
+							<td class='points' style='width: 75px' align="center">${team['puntenTegen']}</td>
+							<td class='points' style='width: 75px' align="center">${team['punten']}</td>
 						</tr>`;
 					});
 				
