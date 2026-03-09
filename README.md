@@ -1,5 +1,9 @@
 # data.dzsonline.nl
 
+## Demo/examples:
+
+https://data.dzsonline.nl/demo.html
+
 ## Import
 
 https://data.dzsonline.nl/import.php
