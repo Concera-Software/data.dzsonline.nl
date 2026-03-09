@@ -1127,8 +1127,9 @@ class dzsWedstrijden extends HTMLElement
 	 *
 	 * ...all 3 filters must be found in the 'wedstrijd'-object as well. For 'datum' and
 	 * 'idKlasse', the same value must be available. For 'idTeam', we'll check the values for
-	 * 'idTeamThuis', 'idTeamUit' and 'idTeamZaalDienst', when one of these matches, it'll be
-	 * seen as a match.
+	 * 'idTeamThuis', 'idTeamUit' (and 'idTeamZaalDienst' when the 'wedstrijdStatus' is set to
+	 * 2, meaning the game isn't played yet), when one of these matches, it'll be seen as a
+	 * match.
 	 *
 	 * At the end of this function, we'll check if the amount of filters and the amount of
 	 * matches are the same. If so, true will be returned, meaning the 'wedstrijd' contains all
@@ -1153,11 +1154,12 @@ class dzsWedstrijden extends HTMLElement
 			switch(key)
 			{
 				case 'idTeam':
-					if(
-						(wedstrijd['idTeamThuis'] == value)
-						|| (wedstrijd['idTeamUit'] == value)
-						|| (wedstrijd['idTeamZaalDienst'] == value)
-					)
+					if((wedstrijd['idTeamThuis'] == value)
+						|| (wedstrijd['idTeamUit'] == value))
+					{
+						countMatches++;
+					}
+					else if((this.getWestrijdStatus() == 2) && (wedstrijd['idTeamZaalDienst'] == value))
 					{
 						countMatches++;
 					}	
