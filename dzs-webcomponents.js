@@ -1,3 +1,17 @@
+/**
+ * -- FILEDESCRIPTION:
+ *
+ * This file contains the webcomponents dzs-standen and dzs-wedstrijden, which can be placed as
+ * HTML-elements into an existing webpage, used to display the data fetched from data.dzsonline.nl.
+ */
+
+/**
+ * The dzsData class will be used by both webcomponents in order to fetch the data from the URL at
+ * data.dzsonline.nl/data.json, by calling function getData(). When parameter cache is set to true
+ * (default) and variable this.cache already contains data, the cached result will be returned. When
+ * a request is already busy, the fetchPromise will be returned instead to prevent calling the same
+ * url again multiple times.
+ */
 class dzsData
 {
 	constructor(url)
@@ -11,17 +25,24 @@ class dzsData
 		this.zaalNames = {};
 	}
 
-	async getData()
+	async getData(cached=true)
 	{
-		if (this.cache)
+		// Return cached data if available
+		//
+		if (cached && (this.cache != null))
 		{
 			return this.cache; // Return de eerder opgehaalde data
 		}
 
-		if (this.fetchPromise) {
-			return this.fetchPromise; // Wacht op de lopende fetch
+		// Return the fetchPromise, while a request is already busy...
+		if (this.fetchPromise != null)
+		{
+			return this.fetchPromise;
 		}
 
+		// Execute the request, store the fetchPromise while it's busy and clear is at the
+		// end. When the response was ok, convert is to JSON.
+		//
 		this.fetchPromise = fetch(this.url)
 		.then(response => {
 			if (!response.ok)
@@ -40,9 +61,23 @@ class dzsData
 			throw error;
 		});
 
+		//
 		return this.fetchPromise;
 	}
 
+	/**
+	 * Because the data in key 'wedstrijden' from the API request only contains id's for the
+	 * 'klasse' of a 'wedstrijd' (not the name itself), this function can be used to lookup the
+	 * name instead.
+	 *
+	 * To prevent looping through the whole data each time this function is called, we'll store
+	 * the result (name of the 'klasse') of this function in this.klasseNames, based on the
+	 * given id. When this function is called with the same id again, the cached value from
+	 * variable this.klasseNames will be returned (if found).
+	 *
+	 * @param {int} id  The id of the 'klasse' to get the name for.
+	 * @returns         The name of the 'klasse' (if found).
+	 */
 	getKlasseName(id)
 	{
 		if(id in this.klasseNames)
@@ -66,6 +101,23 @@ class dzsData
 		return klasseName;
 	}
 
+	/**
+	 * Because the data in key 'wedstrijden' from the API request only contains id's for the
+	 * 'team' of a 'wedstrijd' (not the name itself), this function can be used to lookup the
+	 * name instead.
+	 *
+	 * To prevent looping through the whole data each time this function is called, we'll store
+	 * the result (name of the 'team') of this function in this.teamNames, based on the given
+	 * id. When this function is called with the same id again, the cached value from variable
+	 * this.teamNames will be returned (if found).
+	 *
+	 * In order to loop up a team, we'll first loop through the 'klassen' element in the data,
+	 * followed by looping through all teams (if available) in the 'teams' element of each
+	 * 'klasse'.
+	 *
+	 * @param {int} id  The id of the 'team' to get the name for.
+	 * @returns         The name of the 'team' (if found).
+	 */
 	getTeamName(id)
 	{
 		if(id in this.teamNames)
@@ -96,6 +148,19 @@ class dzsData
 		return teamName;
 	}
 
+	/**
+	 * Because the data in key 'wedstrijden' from the API request only contains id's for the
+	 * 'zaal' of a 'wedstrijd' (not the name itself), this function can be used to lookup the
+	 * name instead.
+	 *
+	 * To prevent looping through the whole data each time this function is called, we'll store
+	 * the result (name of the 'zaal') of this function in this.zaalNames, based on the given
+	 * id. When this function is called with the same id again, the cached value from variable
+	 * this.zaalNames will be returned (if found).
+	 *
+	 * @param {int} id  The id of the 'zaal' to get the name for.
+	 * @returns         The name of the 'zaal' (if found).
+	 */
 	getZaalName(id)
 	{
 		if(id in this.zaalNames)
@@ -120,9 +185,18 @@ class dzsData
 	}
 }
 
-// Gebruik voorbeeld:
+// Create the dataInstance, used to fetch the data from data.dzsonline.nl and cache the result, so
+// when the same data is requested by multiple webcomponents at the same time, only one request will
+// be executed.
+//
 const dataInstance = new dzsData('//data.dzsonline.nl/data.json');
 
+// Create the class dzsStanden for webcomponent <dzs-standen>. This webcomponent will fetch the data
+// from data.dzsonline.nl using the dataInstance and use the result to generate the HTML-template
+// for the component, using attribute "display='summary'" or "display='overview'" to show a short
+// summary of the 'standen' (only the top team for each 'klasse') or a full overview for the
+// specified 'klasse', using attribue "klasse='...'"
+//
 class dzsStanden extends HTMLElement
 {
 	constructor()
@@ -142,6 +216,8 @@ class dzsStanden extends HTMLElement
 			.catch(err => this.renderError(err));
 	}
 
+	// Creates/displays a loader to indicate the data is being loaded...
+	//
 	renderLoading() {
 		this.shadowRoot.innerHTML = `
 			<style>
@@ -151,13 +227,35 @@ class dzsStanden extends HTMLElement
 		`;
 	}
 
+	// Creates/displays an error to indicate something went wrong...
+	//
+	renderError(error)
+	{
+		this.shadowRoot.innerHTML = `
+			<style>
+				.error { color: red; font-weight: bold; }
+			</style>
+			<div class="error">Fout bij laden data: ${error.message}</div>
+		`;
+	}
+
 	renderData(data) {
 
+		// Get the values for attibutes 'display' and 'klasse' from the HTML-element, so
+		// we'll know which data to display.
+		//
 		let attrDisplay = this.getAttribute('display');
 		let attrKlasse = this.getAttribute('klasse');
-
 		let title = 'STANDEN';
 
+		// Start the template by adding inline css/stylesheets for the webcomponents. In
+		// this case, we'll add some styles for the table with class 'teams', used to style
+		// the headers and add some colors for odd/even rows.
+		//
+		// Using the @media query, additional styles are added for smaller displays, used to
+		// hide some texts/columns from the table, so even on mobile phones, the table is
+		// displayed correctly.
+		//
 		let template = `
 			<style>
 				p
@@ -166,6 +264,7 @@ class dzsStanden extends HTMLElement
 					text-transform: uppercase;
 				}
 			
+				/* Style table */
 				table.teams
 				{
 					width: 100%;
@@ -231,6 +330,11 @@ class dzsStanden extends HTMLElement
 						display: none;
 					}
 				}
+
+				/**
+				 * Class .clamp can be used inside table-cells to reduce/shrink the
+				 * text in the cell as the table gets smaller.
+				 */
 				.clamp
 				{
 					display: -webkit-box;
@@ -242,13 +346,16 @@ class dzsStanden extends HTMLElement
 				}				
 			</style>`;
 
+		// When attribute display is set to 'summary', only show a table with only the
+		// first team in each 'klasse' and the amount of points
+		//
 		if(attrDisplay == 'summary')
 		{	
 			template += `<table class='teams'>
 				<thead>
 					<tr>
 						<th colspan="2" style='text-align: left'>
-							<p><span style="color: #ff0000;"><strong>${title}</strong></span></p>
+						<p><span style="color: #ff0000;"><strong>${title}</strong></span></p>
 						</th>
 						<th><p><span><strong>+</strong></span></p></th>
 						<th><p><span><strong>-</strong></span></p></th>
@@ -283,6 +390,12 @@ class dzsStanden extends HTMLElement
 				</tr>`;
 			});
 		}
+
+		// Otherwise (when attribute display is set to 'overview'), use attribute 'klasse'
+		// to find the specified classe and create a table with all teams, ranked based on
+		// their position and detailed information about the amount of 'wedstrijden' that
+		// are played, won, lost, total points etc.
+		//
 		else
 		{
 			data['klassen']['data'].forEach(klasse => {
@@ -333,30 +446,15 @@ class dzsStanden extends HTMLElement
 		this.shadowRoot.innerHTML = template;
 	};
 
-	renderError(error)
-	{
-		this.shadowRoot.innerHTML = `
-			<style>
-				.error { color: red; font-weight: bold; }
-			</style>
-			<div class="error">Fout bij laden data: ${error.message}</div>
-		`;
-	}
-
 	disconnectedCallback()
 	{
 		// browser calls this method when the element is removed from the document
 		// (can be called many times if an element is repeatedly added/removed)
 	}
 
-	static get observedAttributes()
-	{
-		return ['display', 'klasse'];
-	}
-
 	attributeChangedCallback(name, oldValue, newValue)
 	{
-		// called when one of attributes listed above is modified
+		// called when one of the observed attributes listed below are modified
 	}
 
 	adoptedCallback()
@@ -365,24 +463,32 @@ class dzsStanden extends HTMLElement
 		// (happens in document.adoptNode, very rarely used)
 	}
 
+	static get observedAttributes()
+	{
+		return ['display', 'klasse'];
+	}
+
 	// there can be other element methods and properties
 }
 
-// let the browser know that <dzs-standen> is served by our new class
+// Let the browser know that <dzs-standen> is served by class dzsStanden
+//
 customElements.define("dzs-standen", dzsStanden);
 
 class dzsWedstrijden extends HTMLElement
 {
-	wedstrijdLijst = [];
+	wedstrijden = [];
 	wedstrijdFilters = {};
 
 	constructor()
 	{
 		super();
-    		this.attachShadow({ mode: 'open' }); // Shadow DOM voor encapsulatie
+		this.attachShadow({ mode: 'open' }); // Shadow DOM voor encapsulatie
 		// element created
 	}
 
+	// Creates/displays a loader to indicate the data is being loaded...
+	//
 	connectedCallback()
 	{
 		// browser calls this method when the element is added to the document
@@ -402,64 +508,34 @@ class dzsWedstrijden extends HTMLElement
 		`;
 	}
 
-	getWestrijdStatus()
+	// Creates/displays an error to indicate something went wrong...
+	//
+	renderError(error)
 	{
-		let attrStatus = this.getAttribute('status');
-
-		switch(attrStatus)
-		{
-			case '1':
-			case 'gespeeld':
-			case 'uitslagen':
-				return 1;
-				break;
-
-			case '2':
-			case 'gepland':
-			case 'programma':
-				return 2;
-				break;
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Checks if the given date has to be displayed, based on the 'webstrijdstatus'. When the
-	 * wedstrijdStatus is 1, this means only dates that are passes/played/completed are allowed.
-	 * When the wedstrijdStatus is 2, this means only matches/dates that are upcoming/schedules
-	 * are allowed. 
-	 * 
-	 * @param {*} date 
-	 * @returns 
-	 */
-	checkDate(date)
-	{
-
-		let now = new Date();
-		let input = new Date(date);
-		let wedstrijdStatus = this.getWestrijdStatus();
-
-		if(wedstrijdStatus == 1)
-		{
-			return (input <= now);
-		}
-		else if(wedstrijdStatus == 2)
-		{
-			return (input > now);
-		}
-
-		// By default, return true. When no 'wedstrijdStatus' is specified, always allow the
-		// date.
-		//
-		return true;
+		this.shadowRoot.innerHTML = `
+			<style>
+				.error { color: red; font-weight: bold; }
+			</style>
+			<div class="error">Fout bij laden data: ${error.message}</div>
+		`;
 	}
 
 	renderData(data) {
 
+		// Get the values for attibutes 'display', 'status' and 'limit' from the HTML-
+		// element, so we'll know which data to display.
+		//
 		let attrDisplay = this.getAttribute('display');
+		let attrStatus = this.getAttribute('status');
 		let attrLimit = parseInt(this.getAttribute('limit'));
 
+		// Set the title for the webcomponent based on the 'webdstrijdStatus', based on
+		// attribute 'status'. When the 'wedstrijdStatus' is set to 1, this means we'll need
+		// to display games that are played, so we'll use title 'UITSLAGEN'. When the
+		// 'wedstrijdStatus' is set to 2, this means we'll need to display games that are
+		// not yet played, so we'll use title 'PROGRAMMA'. When no 'wedstrijdStatus' is
+		// specified, the general title 'WEDSTRIJDEN' will be used.
+		//
 		let title = 'WEDSTRIJDEN';
 		if(this.getWestrijdStatus() == 1)
 		{
@@ -470,13 +546,24 @@ class dzsWedstrijden extends HTMLElement
 			title = 'PROGRAMMA';
 		}
 
+		// Start the template by adding inline css/stylesheets for the webcomponents. In
+		// this case, we'll add some styles for the table with class 'filters', used to
+		// style the <select> and <button> elemlents in the filters above the full list with
+		// 'wedstrijden' and some styles for the table with class 'teams', used to style
+		// the headers and add some colors for odd/even rows.
+		//
+		// Using the @media query, additional styles are added for smaller displays, used to
+		// hide some texts/columns from the table, so even on mobile phones, the table is
+		// displayed correctly.
+		//
 		let template = `
 			<style>
 				p
 				{
 					margin-top: 0px;
 				}
-			
+				
+				/* Style filters */
 				table.filters,
 				table.wedstrijden
 				{
@@ -500,6 +587,7 @@ class dzsWedstrijden extends HTMLElement
 					padding: 6px;
 				}
 
+				/* Style table */
 				table.wedstrijden thead th,
 				table.wedstrijden tbody td
 				{
@@ -567,6 +655,10 @@ class dzsWedstrijden extends HTMLElement
 					}
 				}
 
+				/**
+				 * Class .clamp can be used inside table-cells to reduce/shrink the
+				 * text in the cell as the table gets smaller.
+				 */
 				.clamp
 				{
 					display: -webkit-box;
@@ -578,6 +670,9 @@ class dzsWedstrijden extends HTMLElement
 				}
 			</style>`;
 
+		// When attribute display is set to 'summary', only show a table with the name of
+		// the teams and the date (if not played yet) or the score of the game (of played).
+		//
 		if(attrDisplay == 'summary')
 		{
 			let rows = 0;
@@ -587,13 +682,18 @@ class dzsWedstrijden extends HTMLElement
 				</thead>
 				<tbody>`;
 
-			let wedstrijdLijst = data['wedstrijden']['data'];
+			let wedstrijden = data['wedstrijden']['data'];
+
+			// When the 'wedstrijdStatus' is set to 1, this means we'll need to display
+			// games that are played, so reverse the list of games so the most recent
+			// game will be displayed first.
+			//
 			if(this.getWestrijdStatus() == 1)
 			{
-				wedstrijdLijst = wedstrijdLijst.slice().reverse();
+				wedstrijden = wedstrijden.slice().reverse();
 			}
 
-			wedstrijdLijst.forEach(wedstrijd => {
+			wedstrijden.forEach(wedstrijd => {
 				if(!isNaN(attrLimit) && (rows > attrLimit))
 				{
 					return;
@@ -607,7 +707,10 @@ class dzsWedstrijden extends HTMLElement
 				template += `<tr id='dzs-game-${wedstrijd['id']}'>
 					<td><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamThuis'])}</div></td>
 					<td><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamUit'])}</div></td>`
-				
+
+				// When the 'wedstrijdStatus' is set to 1, this means we'll need to
+				// display games that are played, so add the score (if available)
+				//
 				if(this.getWestrijdStatus() == 1)
 				{
 					if((wedstrijd['doelpuntenTeamThuis'] != null) && (wedstrijd['doelpuntenTeamUit'] != null))
@@ -619,10 +722,17 @@ class dzsWedstrijden extends HTMLElement
 						template += `<td class='datumText'><i style='color: gray'>n.n.b.</i></td>`;
 					}
 				}
+				// When the 'wedstrijdStatus' is set to 2, this means we'll need to
+				// display games that are not yet played, so add the data of the
+				// 'wedstrijd'.
+				//
 				else if(this.getWestrijdStatus() == 2)
 				{
 					template += `<td class='datumText'>${wedstrijd['datumText']}</td>`;
 				}
+				// In all other cases, just add an empty column to prevent the
+				// table to break.
+				//
 				else
 				{
 					template += `<td></td>`;
@@ -632,14 +742,27 @@ class dzsWedstrijden extends HTMLElement
 				rows++;
 			});
 		}
+
+		// Otherwise (when attribute display is set to 'overview'), the full list of all
+		// 'wedstrijden' and some filters shouw be displayed. Bases on attribute 'status',
+		// only games that needs to be played or games that still needs to be played will
+		// be displayed. Function checkDate() will be used to check if a date from the list
+		// of 'wedstrijden' and 'wedstrijdDagen' has to be displayed or not.
+		//
 		else
 		{
+			// Loop through the response from the dataInstance and create array for
+			// the 'klassen', 'teams', 'wedstrijdDagen', 'wedstrijden' and 'zalen',
+			// which will be used to create the filters to search on.
+			//
 			let klassen = [];
 			let teams = [];
 			let wedstrijdDagen = [];
-			this.wedstrijdLijst = [];
+			this.wedstrijden = [];
 			let zalen = [];
 
+			// Get all 'klassen'
+			//
 			data['klassen']['data'].forEach(klasse => {
 				if(klasse['teams']['meta']['count'] == 0)
 				{
@@ -647,19 +770,22 @@ class dzsWedstrijden extends HTMLElement
 				}
 
 				klassen.push({'value': klasse['id'], 'name': klasse['name']});
-
 				klasse['teams']['data'].forEach(team => {
 					teams.push({'value': team['id'], 'name': team['name'] + ' ('+klasse['name']+')'});
 				});
 			});
 
+			// Get all 'wedstrijden'
+			//
 			data['wedstrijden']['data'].forEach(wedstrijd => {
 				if(this.checkDate(wedstrijd['datumTijd']))
 				{
-					this.wedstrijdLijst.push(wedstrijd)
+					this.wedstrijden.push(wedstrijd)
 				}
 			});
 
+			// Get all 'wedstrijddagen'
+			//
 			data['wedstrijddagen']['data'].forEach(wedstrijdDag => {
 				if(this.checkDate(wedstrijdDag['value']))
 				{
@@ -667,21 +793,30 @@ class dzsWedstrijden extends HTMLElement
 				}
 			});
 
+			// Get all 'zalen'
+			//
 			data['zalen']['data'].forEach(zaal => {
 				zalen.push({'value': zaal['id'], 'name': zaal['name']});
 			});
 
-			// Sorteer teams op naam
+			// Sort teams by name
 			//
 			teams.sort((a, b) => a.name.localeCompare(b.name));
 
-			// Inverteer wedstrijddagen
+			// When the 'wedstrijdStatus' is set to 1, this means we'll need to display
+			// games that are played, so reverse the list of games so the most recent
+			// game will be displayed first.
+			//
 			if(this.getWestrijdStatus() == 1)
 			{
 				wedstrijdDagen = wedstrijdDagen.slice().reverse();
-				this.wedstrijdLijst = this.wedstrijdLijst.slice().reverse();
+				this.wedstrijden = this.wedstrijden.slice().reverse();
 			}
 
+			// Create the table for he filters, add a <select>-element and use the
+			// created arrays to fill the options for 'wedstrijdDagen', 'zalen',
+			// 'klassen' and 'teams'.
+			//
 			template += `<p><span style="color: #ff0000;"><strong>${title}</strong></span></p>
 			<table class='filters'>
 				<tbody>
@@ -731,12 +866,15 @@ class dzsWedstrijden extends HTMLElement
 					<tr>
 						<td></td>
 						<td>
-							<button class="dzs_button">Toon alle ${this.wedstrijdLijst.length} wedstrijden / wis filters</button>
+							<button class="dzs_button">Toon alle ${this.wedstrijden.length} wedstrijden / wis filters</button>
 						</td>
 					</tr>
 				</tbody>
 			</table><br><br>`;
 
+			// Create table with all 'wedstrijden' based on the array of data in
+			// this.wedstrijden.
+			//
 			template += `<table class='wedstrijden ${title}'>
 				<thead>
 					<tr>
@@ -747,14 +885,27 @@ class dzsWedstrijden extends HTMLElement
 						<th>Team Thuis</th>
 						<th>Team Uit</th>`;
 
+						// When the 'wedstrijdStatus' is set to 1, this
+						// means we'll need to display games that are
+						// played, so add add the header for column
+						// 'uitslag'.
+						//
 						if(this.getWestrijdStatus() == 1)
 						{
 							template += `<th class='uitslag'>Uitslag</th>`;
 						}
+						// When the 'wedstrijdStatus' is set to 2, this
+						// means we'll need to display games that are noy
+						// yet played, so add the header for column for the
+						// team that has 'zaaldienst'.
+						//
 						else if(this.getWestrijdStatus() == 2)
 						{
 							template += `<th class='zaaldienst'>Zaaldienst</th>`;
 						}
+						// In all other cases, just add an empty column to
+						// prevent the table to break.
+						//
 						else
 						{
 							template += `<th></th>`; // ??
@@ -763,7 +914,7 @@ class dzsWedstrijden extends HTMLElement
 				</thead>
 				<tbody>`;
 
-				this.wedstrijdLijst.forEach(wedstrijd => {
+				this.wedstrijden.forEach(wedstrijd => {
 
 					template += `<tr id='dzs-game-${wedstrijd['id']}'>
 						<td class='zaal'>${dataInstance.getZaalName(wedstrijd['idZaal'])}</td>
@@ -773,6 +924,10 @@ class dzsWedstrijden extends HTMLElement
 						<td><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamThuis'])}</div></td>
 						<td><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamUit'])}</div></td>`;
 					
+					// When the 'wedstrijdStatus' is set to 1, this means we'll
+					// need to display games that are played, so add the score
+					// (if available)
+					//
 					if(this.getWestrijdStatus() == 1)
 					{
 						if((wedstrijd['doelpuntenTeamThuis'] != null) && (wedstrijd['doelpuntenTeamUit'] != null))
@@ -784,10 +939,17 @@ class dzsWedstrijden extends HTMLElement
 							template += `<td class='uitslag'><i style='color: gray'>n.n.b.</i></td>`;
 						}
 					}
+					// When the 'wedstrijdStatus' is set to 2, this means we'll
+					// need to display games that are not yet played, so add the
+					// name of the team that has 'zaaldienst'.
+					//
 					else if(this.getWestrijdStatus() == 2)
 					{
 						template += `<td class='zaaldienst'><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst'])}</div></td>`;
 					}
+					// In all other cases, just add an empty column to prevent
+					// the table to break.
+					//
 					else
 					{
 						template += `<td></td>`;
@@ -802,6 +964,11 @@ class dzsWedstrijden extends HTMLElement
 
 		this.shadowRoot.innerHTML = template;
 
+		// After adding the template to the webcomponent, check attribute display. When set
+		// to overview, this means besides the list of 'wedstrijden', also filters will be
+		// available. Bind events to the <select> and <button> elements, used to filter the
+		// list.
+		//
 		if(attrDisplay == 'overview')
 		{
 			let selectElements = this.shadowRoot.querySelectorAll('select');
@@ -814,16 +981,74 @@ class dzsWedstrijden extends HTMLElement
 		}
 	};
 
-	renderError(error)
+	/**
+	 * Returns integer (1 for played games, 2 for upcomming games) based on attribute 'status'
+	 * for this webcomponent.
+	 * @returns 
+	 */
+	getWestrijdStatus()
 	{
-		this.shadowRoot.innerHTML = `
-			<style>
-				.error { color: red; font-weight: bold; }
-			</style>
-			<div class="error">Fout bij laden data: ${error.message}</div>
-		`;
+		let attrStatus = this.getAttribute('status');
+
+		switch(attrStatus)
+		{
+			case '1':
+			case 'gespeeld':
+			case 'uitslagen':
+				return 1;
+				break;
+
+			case '2':
+			case 'gepland':
+			case 'programma':
+				return 2;
+				break;
+		}
+
+		return 0;
 	}
 
+	/**
+	 * Checks if the given date has to be displayed, based on the 'webstrijdstatus'. When the
+	 * wedstrijdStatus is 1, this means only dates that are passes/played/completed are allowed.
+	 * When the wedstrijdStatus is 2, this means only matches/dates that are upcoming/schedules
+	 * are allowed. 
+	 * 
+	 * @param {*} date 
+	 * @returns 
+	 */
+	checkDate(date)
+	{
+		let now = new Date();
+		let input = new Date(date);
+		let wedstrijdStatus = this.getWestrijdStatus();
+
+		if(wedstrijdStatus == 1)
+		{
+			return (input <= now);
+		}
+		else if(wedstrijdStatus == 2)
+		{
+			return (input > now);
+		}
+
+		// By default, return true. When no 'wedstrijdStatus' is specified, always allow the
+		// date.
+		//
+		return true;
+	}
+
+	/**
+	 * Handles the change of a <select> element in the filters of the component. When a value is
+	 * set, it will be added to the this.wedstrijdFilters-object, used to hold on which fields
+	 * and which values the filters are set. When no value is found, the filter will be removed
+	 * from the this.wedstrijdFilters-object.
+	 *
+	 * After this, we'll call  function this.filterWedstrijden() in order to filter the items
+	 * in object 'this.wedstrijden', only to display the ones matching the set filters.
+	 *
+	 * @param {*} event 
+	 */
 	handleChange(event) {
 		const selectName = event.target.name;
 		const selectedValue = event.target.value;
@@ -842,6 +1067,13 @@ class dzsWedstrijden extends HTMLElement
 		this.filterWedstrijden();
 	}
 
+	/**
+	 * Clears all filers by resetting the value for all <select> and clearing the
+	 * this.wedstrijdFilters-object.
+	 *
+	 * After this, we'll call  function this.filterWedstrijden() in order to filter the items
+	 * in object 'this.wedstrijden', only to display the ones matching the set filters.
+	 */
 	clearFilters() {
 	
 		let selectElements = this.shadowRoot.querySelectorAll('select');
@@ -853,10 +1085,18 @@ class dzsWedstrijden extends HTMLElement
 		this.filterWedstrijden();
 	}
 
+	/**
+	 * Loops through all 'wedstrijden' in the this.wedstrijden-object and check if the
+	 * wedstrijd matches the set filters. If not, the row for the 'wedstrijd' will be hidden in
+	 * the table, otherwise, the row will be displayed.
+	 *
+	 * When the row is displayed, variable visibleIndex will be increased and used to add class
+	 * 'odd' or 'even' to the row, so that lines change color one after each other.
+	 */
 	filterWedstrijden()
 	{	
 		let visibleIndex = 0;
-		this.wedstrijdLijst.forEach(wedstrijd => {
+		this.wedstrijden.forEach(wedstrijd => {
 			
 			let row = this.shadowRoot.querySelector('#dzs-game-'+wedstrijd['id']);
 			if(!this.wedstrijdMatchesFilter(wedstrijd))
@@ -872,11 +1112,37 @@ class dzsWedstrijden extends HTMLElement
 		});
 	}
 
+	/**
+	 * Check if a 'wedstrijd' matches the set filter(s). When no filters are set, we'll always
+	 * return true, because no filters means all 'wedstrijden' has to be displayed. Otherwise,
+	 * each filter must match the data from the 'wedstrijd' for it to be valid.
+	 *
+	 * For example, the this.wedstrijdFilters-object contains the following values...
+	 *
+	 *  {
+	 *     datum: "2026-04-03"
+	 *     idKlasse: 4
+	 *     idTeam: 19
+	 *   }
+	 *
+	 * ...all 3 filters must be found in the 'wedstrijd'-object as well. For 'datum' and
+	 * 'idKlasse', the same value must be available. For 'idTeam', we'll check the values for
+	 * 'idTeamThuis', 'idTeamUit' and 'idTeamZaalDienst', when one of these matches, it'll be
+	 * seen as a match.
+	 *
+	 * At the end of this function, we'll check if the amount of filters and the amount of
+	 * matches are the same. If so, true will be returned, meaning the 'wedstrijd' contains all
+	 * the values that's filtered on.
+	 */
 	wedstrijdMatchesFilter(wedstrijd)
 	{
 		let countFilters = Object.keys(this.wedstrijdFilters).length;
-		let countMatches = 0;
+		if(countFilters == 0)
+		{
+			return true;
+		}
 
+		let countMatches = 0;
 		for (const [key, value] of Object.entries(this.wedstrijdFilters))
 		{
 			if(value == '')
@@ -914,14 +1180,9 @@ class dzsWedstrijden extends HTMLElement
 		// (can be called many times if an element is repeatedly added/removed)
 	}
 
-	static get observedAttributes()
-	{
-		return ['display', 'status', 'limit'];
-	}
-
 	attributeChangedCallback(name, oldValue, newValue)
 	{
-		// called when one of attributes listed above is modified
+		// called when one of the observed attributes listed below are modified
 	}
 
 	adoptedCallback()
@@ -930,8 +1191,14 @@ class dzsWedstrijden extends HTMLElement
 		// (happens in document.adoptNode, very rarely used)
 	}
 
+	static get observedAttributes()
+	{
+		return ['display', 'status', 'limit'];
+	}
+
 	// there can be other element methods and properties
 }
 
-// let the browser know that <dzs-wedstrijden> is served by our new class
+// Let the browser know that <dzs-wedstrijden> is served by class dzsWedstrijden
+//
 customElements.define("dzs-wedstrijden", dzsWedstrijden);
