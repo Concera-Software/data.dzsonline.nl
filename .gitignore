@@ -104,3 +104,11 @@ _aino
 # Exclude .csv-files, these are used during development to import data, but should not be committed
 # to the repository.
 *.csv
+.gitignore
+
+# Exclude html demo files, based on the current layout of the new website for DZS Online.
+#
+demo-homepage.html
+demo-programma.html
+demo-standen.html
+demo-uitslagen.html
