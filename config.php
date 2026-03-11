@@ -27,6 +27,11 @@
 	ini_set('display_startup_errors', '1');
 	error_reporting(E_ALL);
 
+	$documentRoot		= $_SERVER['DOCUMENT_ROOT']."/";
+	$uploadDir		= $_SERVER['DOCUMENT_ROOT']."/uploads";
+	$CFG_verifiers		= ["support@concera.com"];
+	$CFG_importPwd		= "dzsonline";
+
 	// To prevent this file from being accessed directly, we check if the variable $mysqliConfig
 	// is set. This variable should be set in the file that includes this one. When the variable
 	// is not set, return a 204 No Content response and terminate the script.
