@@ -935,7 +935,8 @@
 							{	
 								//
 								list($Dag, $Maand, $Yaar) = explode('-', $Datum);
-								list($Uur, $Minuut) = explode('.', $Tijd);
+								$aTijd = explode('.', $Tijd);
+								if (count($aTijd)>=2) list($Uur, $Minuut) = $aTijd;
 
 								$MaandAfkortingEngels = array('jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec');
 								$MaandAfkortingNederlands = array('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec');
@@ -1129,21 +1130,3 @@
 		}
 	}
 
-	// Include the MySQLi class, create an instance of the dzs_import class and call method
-	// import with the path to the CSV file to import the data.
-	//
-	include('mysqli.class.php');
-	$dzsImport = new dzs_import($mysqliConnection);
-	if($dzsImport->Import('koos10.csv'))
-	{
-		// When the import is done, generate a small report.
-		//
-		print "<h1>Import gelukt!</h1><hr>";
-		print "Overzicht van geïmporteerde gegevens:<br><ul>";
-		$count = $dzsImport->countData();
-		foreach($count as $key => $value)
-		{
-			print "<li>".$key.": ".$value."</li>";
-		}
-		print "</ul>";
-	}
