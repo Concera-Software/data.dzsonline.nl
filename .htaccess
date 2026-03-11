@@ -1,5 +1,17 @@
 Options -Indexes
 
+# Block direct access to .csv and .php files (except import.php)
+#
+<FilesMatch "\.(csv|php)$">
+    Require all denied
+</FilesMatch>
+
+# When the .php file is import.php, allow it anyways.
+<Files "import.php">
+    Satisfy Any
+    Allow from all
+</Files>
+
 <IfModule mod_rewrite.c>
 
 	# Enable Apache RewriteEngine (if module is available)
