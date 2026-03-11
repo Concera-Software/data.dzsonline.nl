@@ -12,12 +12,22 @@ Options -Indexes
     Allow from all
 </Files>
 
+# When the .php file is api.php, allow it anyways.
+<Files "api.php">
+    Satisfy Any
+    Allow from all
+</Files>
+
 <IfModule mod_rewrite.c>
 
 	# Enable Apache RewriteEngine (if module is available)
 	#
 	Options +FollowSymlinks
 	RewriteEngine On
+
+	# Rewrite /(.*/|)import to import.php
+	#
+	RewriteRule ^(.*/|)import/?$ import.php [L]
 
 	# Rewrite /(.*/|)<dataType>.json to /api.php?_fetch=<dataType>
 	# This rule handles URL's that ends on .json, then captures the name of the 'file' and
