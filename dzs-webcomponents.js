@@ -277,6 +277,20 @@ class dzsStanden extends HTMLElement
 					white-space: nowrap;
 					padding: 3px;
 				}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 75px;
+					}
 
 				table.teams thead th p
 				{
@@ -292,42 +306,288 @@ class dzsStanden extends HTMLElement
 				{
 					display: none;
 				}
-				
-				@media (max-width: 750px)
-				{
-					table.teams font.longText
-					{
-						display: none;
-					}
-					
-					table.teams font.shortText
-					{
-						display: block;
-					}
 
+				/* Use a smaller font (14px) and padding (0.9px) and narrow the
+				 * columns with points and amount of matches to 70px on screens
+				 * smaller then 1024px, so the full table remains visible. Also. On
+				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 1024px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 14px;
+						padding: 0.9px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
 					table.teams thead th.gewonnen,
 					table.teams tbody td.gewonnen,
 					table.teams thead th.gelijk,
 					table.teams tbody td.gelijk,
 					table.teams thead th.verloren,
-					table.teams tbody td.verloren
-					{
-						display: none;
-					}
-
+					table.teams tbody td.verloren,
 					table.teams thead th.points,
 					table.teams tbody td.points
 					{
-						width: 30px !important;
+						width: 70px;
 					}
 				}
-				
+
+				/* Use an even smaller font (13px) and narrow the columns with
+				 * points and amount of matches to 65px on screens smaller then
+				 * 960px, so the full table remains visible. Also. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 960px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 13px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 65px;
+					}
+				}
+
+				/* Use an even smaller font (12px) and padding (0.8px) and narrow
+				 * the columns with points and amount of matches to 60px on screens
+				 * smaller then 920px, so the full table remains visible. Also. On
+				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 920px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 12px;
+						padding: 0.8px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 60px;
+					}
+				}
+
+				/* Use an even smaller font (11px) and narrow the columns with
+				 * points and amount of matches to 55px on screens smaller then
+				 * 860px, so the full table remains visible. Also. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 860px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 11px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 55px;
+					}
+				}
+
+				/* Use an even smaller font (10px) and padding (0.7px) and narrow
+				 * the columns with points and amount of matches to 50px on screens
+				 * smaller then 800px, so the full table remains visible. Also. On
+				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 800px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 10px;
+						padding: 0.7px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 50px;
+					}
+				}
+
+				/* Use an even smaller font (9px) and narrow the columns with
+				 * points and amount of matches to 45px on screens smaller then
+				 * 720px, so the full table remains visible. Also. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 720px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: ;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 45px;
+					}
+				}
+
+				/* Use an even smaller font (8px) and padding (0.6px) and narrow
+				 * the columns with points and amount of matches to 40px on screens
+				 * smaller then 660px, so the full table remains visible. Also. On
+				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 660px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 8px;
+						padding: 0.6px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 40px;
+					}
+				}
+
+				/* Use an even smaller font (7px) and narrow the columns with
+				 * points and amount of matches to 35px on screens smaller then
+				 * 600px, so the full table remains visible. Also. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 600px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 7px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 35px;
+					}
+				}
+
+				/* Use an even smaller font (6px) and padding (0.5px) and narrow
+				 * the columns with points and amount of matches to 30px on screens
+				 * smaller then 540px, so the full table remains visible. Also. On
+				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 540px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 6px;
+						padding: 0.5px;
+					}
+			
+					table.teams thead th.gespeeld,
+					table.teams tbody td.gespeeld,
+					table.teams thead th.gewonnen,
+					table.teams tbody td.gewonnen,
+					table.teams thead th.gelijk,
+					table.teams tbody td.gelijk,
+					table.teams thead th.verloren,
+					table.teams tbody td.verloren,
+					table.teams thead th.points,
+					table.teams tbody td.points
+					{
+						width: 30px;
+					}
+				}
+
+				/* Use an even smaller font (5px) on screens smaller then 500px,
+				 * so the full table remains visible. On mobile devices, pinch to
+				 * zoom has to be used to enlarge the text.
+				 */
 				@media (max-width: 500px)
 				{
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld
+					table.teams thead th,
+					table.teams tbody td
 					{
-						display: none;
+						font-size: 5px;
+					}
+				}
+
+				/* Use an even smaller font (4px) and padding (0.4px) on screens
+				 * smaller then 420px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 420px)
+				{
+					table.teams thead th,
+					table.teams tbody td
+					{
+						font-size: 4px;
+						padding: 0.4px;
 					}
 				}
 
@@ -425,15 +685,15 @@ class dzsStanden extends HTMLElement
 					
 					klasse['teams']['data'].forEach(team => {
 						template += `<tr id='dzs-team-${team['id']}'>
-							<td style='width: 30px'>${team['positie']}</td>
+							<td style='max-width: 30px'>${team['positie']}</td>
 							<td><div class="clamp">${team['name']}</div></td>
-							<td class='gespeeld' style='width: 75px' align="center">${team['gespeeld']}</td>
-							<td class='gewonnen' style='width: 75px' align="center">${team['gewonnen']}</td>
-							<td class='gelijk' style='width: 75px' align="center">${team['gelijk']}</td>
-							<td class='verloren' style='width: 75px' align="center">${team['verloren']}</td>
-							<td class='points' style='width: 75px' align="center">${team['puntenVoor']}</td>
-							<td class='points' style='width: 75px' align="center">${team['puntenTegen']}</td>
-							<td class='points' style='width: 75px' align="center">${team['punten']}</td>
+							<td class='gespeeld' align="center">${team['gespeeld']}</td>
+							<td class='gewonnen' align="center">${team['gewonnen']}</td>
+							<td class='gelijk' align="center">${team['gelijk']}</td>
+							<td class='verloren' align="center">${team['verloren']}</td>
+							<td class='points' align="center">${team['puntenVoor']}</td>
+							<td class='points' align="center">${team['puntenTegen']}</td>
+							<td class='points' align="center">${team['punten']}</td>
 						</tr>`;
 					});
 				
