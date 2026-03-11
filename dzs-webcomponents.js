@@ -608,50 +608,152 @@ class dzsWedstrijden extends HTMLElement
 					display: none;
 				}
 
-				/* On small screens, hide 2nd and 3rd columns */
-				@media (max-width: 950px)
+				/* Use a smaller font (14px) and padding (0.9px) on screens smaller
+				 * then 1024px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 1024px)
 				{
-					table.wedstrijden thead th.zaaldienst,
-					table.wedstrijden tbody td.zaaldienst
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
 					{
-						display: none;
+						font-size: 14px;
+						padding: 0.9px;
 					}
 				}
-				
-				@media (max-width: 850px)
+
+				/* Use an even smaller font (13px) on screens smaller then 960px,
+				 * so the full table remains visible. On mobile devices, pinch to
+				 * zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 960px)
 				{
-					table.wedstrijden font.longText
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
 					{
-						display: none;
-					}
-					
-					table.wedstrijden font.shortText
-					{
-						display: block;
+						font-size: 13px;
 					}
 				}
-				
+
+				/* Use an even smaller font (12px) and padding (0.8px) on screens
+				 * smaller then 920px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 920px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 12px;
+						padding: 0.8px;
+					}
+				}
+
+				/* Use an even smaller font (11px) on screens smaller then 860px,
+				 * so the full table remains visible. On mobile devices, pinch to
+				 * zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 860px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 11px;
+					}
+				}
+
+				/* Use an even smaller font (10px) and padding (0.7px) on screens
+				 * smaller then 920px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
 				@media (max-width: 800px)
 				{
-					table.wedstrijden thead th.zaal,
-					table.wedstrijden tbody td.zaal
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
 					{
-						display: none;
+						font-size: 10px;
+						padding: 0.7px;
 					}
 				}
-				
-				@media (max-width: 750px)
-				{
-					table.wedstrijden thead th.klasse,
-					table.wedstrijden tbody td.klasse
-					{
-						display: none;
-					}
 
-					table.wedstrijden.UITSLAGEN thead th.tijd,
-					table.wedstrijden.UITSLAGEN tbody td.tijd
+				/* Use an even smaller font (9px) on screens smaller then 720px,
+				 * so the full table remains visible. On mobile devices, pinch to
+				 * zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 720px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
 					{
-						display: none;
+						font-size: 9px;
+					}
+				}
+
+				/* Use an even smaller font (8px) and padding (0.6px) on screens
+				 * smaller then 660px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 660px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 8px;
+						padding: 0.6px;
+					}
+				}
+
+				/* Use an even smaller font (7px) on screens smaller then 600px,
+				 * so the full table remains visible. On mobile devices, pinch to
+				 * zoom has to be used to enlarge the text
+				 */
+				@media (max-width: 600px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 7px;
+					}
+				}
+
+				/* Use an even smaller font (6px) and padding (0.5px) on screens
+				 * smaller then 540px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 540px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 6px;
+						padding: 0.5px;
+					}
+				}
+
+				/* Use an even smaller font (5px) on screens smaller then 500px,
+				 * so the full table remains visible. On mobile devices, pinch to
+				 * zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 500px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 5px;
+					}
+				}
+
+				/* Use an even smaller font (4px) and padding (0.4px) on screens
+				 * smaller then 420px, so the full table remains visible. On mobile
+				 * devices, pinch to zoom has to be used to enlarge the text.
+				 */
+				@media (max-width: 420px)
+				{
+					table.wedstrijden thead th,
+					table.wedstrijden tbody td
+					{
+						font-size: 4px;
+						padding: 0.4px;
 					}
 				}
 
