@@ -1,5 +1,4 @@
 <?php
-
 	/**
 	 * -- FILEDESCRIPTION:
 	 *
@@ -602,9 +601,9 @@
 	//
 	if(!isset($mysqliConfig))
 	{
-		if(!file_exists('mysqli.config.php'))
+		if(!file_exists($msqliConfig))
 		{
-			throw new Exception('MySQLi ConfigurationFile not found: mysqli.config.php');
+			throw new Exception('MySQLi ConfigurationFile not found: $msqliConfig');
 			die();
 		}
 
@@ -613,7 +612,7 @@
 		// to prevent direct access and append the configuration to this variable.
 		//
 		$mysqliConfig = [];
-		include('mysqli.config.php');
+		include($msqliConfig);
 	}
 
 	if(!isset($mysqliConfig['username'], $mysqliConfig['password'], $mysqliConfig['database']))

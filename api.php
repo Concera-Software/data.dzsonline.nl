@@ -683,7 +683,36 @@
 	// fetch with the request parameter _fetch from the URL. When no data is returned, return
 	// a 404 Not Found response and terminate the script.
 	//
-	include('mysqli.class.php');
+	$mysqliConfig = array();
+
+	// include configuration file.
+	//
+	$configFile = $_SERVER['DOCUMENT_ROOT']."/config.php";
+	if (!isset($documentRoot)) $documentRoot = $_SERVER['DOCUMENT_ROOT']."";
+
+	// in configuration file exists, include it, otherwise exit script.
+	//
+	if (!file_exists($configFile)) { 
+		echo "Could not load configuration $configFile<br>"; 
+		ob_flush();
+		die();
+	}
+	else{ 
+		include($configFile); 
+	}
+
+	// include required class for mysql .
+	//
+	$mysqliClass = $documentRoot.'/mysqli.class.php';
+	if (!file_exists($mysqliClass)) { 
+		echo "Could not load configuration $mysqliClass<br>"; 
+		ob_flush();
+		die();
+	}
+	else{ 
+		include($mysqliClass); 
+	}
+
 	$dzsApi = new dzs_api($mysqliConnection);
 	$data = $dzsApi->Fetch($_REQUEST['_fetch']);
 
