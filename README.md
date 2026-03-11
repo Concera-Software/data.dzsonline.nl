@@ -4,10 +4,29 @@
 
 https://data.dzsonline.nl/demo.html
 
+## Eindpoints:
+
+**Upcomming games**:
+https://data.dzsonline.nl/programma.json
+
+**Played games**:
+https://data.dzsonline.nl/uitslagen.json
+
+**All games**:
+https://data.dzsonline.nl/wedstrijden.json
+
+**Teams** (per klasse):
+https://data.dzsonline.nl/teams.json
+
+**Teams, sorted by position and with detailed information about points and played games** (per klasse):
+https://data.dzsonline.nl/standen.json
+
+**All together in a single request**:
+https://data.dzsonline.nl/data.json
+
 ## Import
 
-https://data.dzsonline.nl/import.php
-
+https://data.dzsonline.nl/import
 ## Webcomponents
 
 **Include JavaScript:**
