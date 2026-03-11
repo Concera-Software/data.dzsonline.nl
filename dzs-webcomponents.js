@@ -314,23 +314,23 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 1024px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 14px;
 						padding: 0.9px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 70px;
 					}
@@ -343,22 +343,22 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 960px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 13px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 65px;
 					}
@@ -371,23 +371,23 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 920px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 12px;
 						padding: 0.8px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 60px;
 					}
@@ -400,22 +400,22 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 860px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 11px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 55px;
 					}
@@ -428,23 +428,23 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 800px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 10px;
 						padding: 0.7px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 50px;
 					}
@@ -457,22 +457,22 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 720px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: ;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 45px;
 					}
@@ -485,23 +485,23 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 660px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 8px;
 						padding: 0.6px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 40px;
 					}
@@ -514,22 +514,22 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 600px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 7px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 35px;
 					}
@@ -542,23 +542,23 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 540px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 6px;
 						padding: 0.5px;
 					}
 			
-					table.teams thead th.gespeeld,
-					table.teams tbody td.gespeeld,
-					table.teams thead th.gewonnen,
-					table.teams tbody td.gewonnen,
-					table.teams thead th.gelijk,
-					table.teams tbody td.gelijk,
-					table.teams thead th.verloren,
-					table.teams tbody td.verloren,
-					table.teams thead th.points,
-					table.teams tbody td.points
+					table.teams.overview thead th.gespeeld,
+					table.teams.overview tbody td.gespeeld,
+					table.teams.overview thead th.gewonnen,
+					table.teams.overview tbody td.gewonnen,
+					table.teams.overview thead th.gelijk,
+					table.teams.overview tbody td.gelijk,
+					table.teams.overview thead th.verloren,
+					table.teams.overview tbody td.verloren,
+					table.teams.overview thead th.points,
+					table.teams.overview tbody td.points
 					{
 						width: 30px;
 					}
@@ -570,8 +570,8 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 500px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 5px;
 					}
@@ -583,8 +583,8 @@ class dzsStanden extends HTMLElement
 				 */
 				@media (max-width: 420px)
 				{
-					table.teams thead th,
-					table.teams tbody td
+					table.teams.overview thead th,
+					table.teams.overview tbody td
 					{
 						font-size: 4px;
 						padding: 0.4px;
@@ -667,7 +667,7 @@ class dzsStanden extends HTMLElement
 				if(klasse['name'] == attrKlasse)
 				{
 					template += `<p><span style="color: #ff0000;"><strong>${klasse['name']}</strong></span></p>
-					<table class='teams'>
+					<table class='teams overview'>
 					<thead>
 						<tr>
 							<th></th>
@@ -863,10 +863,6 @@ class dzsWedstrijden extends HTMLElement
 				{
 					background-color: #E6E6E6;
 				}
-				table.wedstrijden font.shortText
-				{
-					display: none;
-				}
 
 				/* Use a smaller font (14px) and padding (0.9px) on screens smaller
 				 * then 1024px, so the full table remains visible. On mobile
@@ -874,8 +870,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 1024px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 14px;
 						padding: 0.9px;
@@ -888,8 +884,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 960px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 13px;
 					}
@@ -901,8 +897,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 920px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 12px;
 						padding: 0.8px;
@@ -915,8 +911,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 860px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 11px;
 					}
@@ -928,8 +924,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 800px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 10px;
 						padding: 0.7px;
@@ -942,8 +938,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 720px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 9px;
 					}
@@ -955,8 +951,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 660px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 8px;
 						padding: 0.6px;
@@ -969,8 +965,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 600px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 7px;
 					}
@@ -982,8 +978,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 540px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 6px;
 						padding: 0.5px;
@@ -996,8 +992,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 500px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 5px;
 					}
@@ -1009,8 +1005,8 @@ class dzsWedstrijden extends HTMLElement
 				 */
 				@media (max-width: 420px)
 				{
-					table.wedstrijden thead th,
-					table.wedstrijden tbody td
+					table.wedstrijden.overview thead th,
+					table.wedstrijden.overview tbody td
 					{
 						font-size: 4px;
 						padding: 0.4px;
@@ -1237,7 +1233,7 @@ class dzsWedstrijden extends HTMLElement
 			// Create table with all 'wedstrijden' based on the array of data in
 			// this.wedstrijden.
 			//
-			template += `<table class='wedstrijden ${title}'>
+			template += `<table class='wedstrijden overview ${title}'>
 				<thead>
 					<tr>
 						<th class='zaal'>Zaal</th>
