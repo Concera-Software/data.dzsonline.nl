@@ -1003,7 +1003,7 @@ class dzsWedstrijden extends HTMLElement
 						//
 						else if(this.getWestrijdStatus() == 2)
 						{
-							template += `<th class='zaaldienst'>Zaaldienst</th>`;
+							template += `<th class='zaaldienst'>Team(s) Zaaldienst</th>`;
 						}
 						// In all other cases, just add an empty column to
 						// prevent the table to break.
@@ -1047,7 +1047,34 @@ class dzsWedstrijden extends HTMLElement
 					//
 					else if(this.getWestrijdStatus() == 2)
 					{
-						template += `<td class='zaaldienst'><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst'])}</div></td>`;
+						let zaaldienstTeams = [];
+						if(parseInt(wedstrijd['idTeamZaalDienst']) > 0)
+						{
+							zaaldienstTeams.push(`<div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst'])}</div>`);
+						}
+						else if(parseInt(wedstrijd['idTeamZaalDienst_01']) > 0)
+						{
+							zaaldienstTeams.push(`<div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst_01'])}</div>`);
+						}
+						if(parseInt(wedstrijd['idTeamZaalDienst_02']) > 0)
+						{
+							zaaldienstTeams.push(`<div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst_02'])}</div>`);
+						}
+						if(parseInt(wedstrijd['idTeamZaalDienst_03']) > 0)
+						{
+							zaaldienstTeams.push(`<div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst_03'])}</div>`);
+						}
+						if(parseInt(wedstrijd['idTeamZaalDienst_04']) > 0)
+						{
+							zaaldienstTeams.push(`<div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst_04'])}</div>`);
+						}
+						if(parseInt(wedstrijd['idTeamZaalDienst_05']) > 0)
+						{
+							zaaldienstTeams.push(`<div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamZaalDienst_05'])}</div>`);
+						}
+						console.log('wedstrijd: ', wedstrijd, ' - zaaldienstTeams: ' , zaaldienstTeams);
+
+						template += `<td class='zaaldienst'>${zaaldienstTeams.join('')}</td>`;
 					}
 					// In all other cases, just add an empty column to prevent
 					// the table to break.
@@ -1229,9 +1256,10 @@ class dzsWedstrijden extends HTMLElement
 	 *
 	 * ...all 3 filters must be found in the 'wedstrijd'-object as well. For 'datum' and
 	 * 'idKlasse', the same value must be available. For 'idTeam', we'll check the values for
-	 * 'idTeamThuis', 'idTeamUit' (and 'idTeamZaalDienst' when the 'wedstrijdStatus' is set to
-	 * 2, meaning the game isn't played yet), when one of these matches, it'll be seen as a
-	 * match.
+	 * 'idTeamThuis', 'idTeamUit' (and 'idTeamZaalDienst', 'idTeamZaalDienst_01',
+	 * 'idTeamZaalDienst_02', 'idTeamZaalDienst_03', 'idTeamZaalDienst_04' and
+	 * 'idTeamZaalDienst_05' when the 'wedstrijdStatus' is set to 2, meaning the game isn't
+	 * played yet), when one of these matches, it'll be seen as a match.
 	 *
 	 * At the end of this function, we'll check if the amount of filters and the amount of
 	 * matches are the same. If so, true will be returned, meaning the 'wedstrijd' contains all
@@ -1255,16 +1283,29 @@ class dzsWedstrijden extends HTMLElement
 
 			switch(key)
 			{
+				// Custom handling for match on filter for 'idTeam', checking on
+				// multiple fields in the 'wedstrijd' object to determine whether
+				// or not a match was found.
+				//
 				case 'idTeam':
-					if((wedstrijd['idTeamThuis'] == value)
-						|| (wedstrijd['idTeamUit'] == value))
-					{
+					if(
+						(parseInt(wedstrijd['idTeamThuis']) == value)
+						|| (parseInt(wedstrijd['idTeamUit']) == value)
+					) {
 						countMatches++;
 					}
-					else if((this.getWestrijdStatus() == 2) && (wedstrijd['idTeamZaalDienst'] == value))
-					{
+					else if(
+						(this.getWestrijdStatus() == 2) && (
+							(parseInt(wedstrijd['idTeamZaalDienst']) == value)
+							|| (parseInt(wedstrijd['idTeamZaalDienst_01']) == value)
+							|| (parseInt(wedstrijd['idTeamZaalDienst_02']) == value)
+							|| (parseInt(wedstrijd['idTeamZaalDienst_03']) == value)
+							|| (parseInt(wedstrijd['idTeamZaalDienst_04']) == value)
+							|| (parseInt(wedstrijd['idTeamZaalDienst_05']) == value)
+						)
+					) {
 						countMatches++;
-					}	
+					}
 					break;
 
 				default:

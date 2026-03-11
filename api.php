@@ -549,6 +549,10 @@
 				. " , `dzs_Wedstrijden`.`TeamIdUit` "
 				. " , `dzs_Wedstrijden`.`DoelpuntenTeamUit` "
 				. " , `dzs_Wedstrijden`.`TeamIdZaaldienst_01` "
+				. " , `dzs_Wedstrijden`.`TeamIdZaaldienst_02` "
+				. " , `dzs_Wedstrijden`.`TeamIdZaaldienst_03` "
+				. " , `dzs_Wedstrijden`.`TeamIdZaaldienst_04` "
+				. " , `dzs_Wedstrijden`.`TeamIdZaaldienst_05` "
 
 			.  " FROM "
 				. " `dzs_Wedstrijden` "
@@ -631,7 +635,11 @@
 					// 'teamUit' => $record->TeamnaamUit,
 					'doelpuntenTeamUit' => (intval($record->DoelpuntenTeamUit)>-1?intval($record->DoelpuntenTeamUit):null),
 					// 'uitslag' => (($record->DoelpuntenTeamThuis > -1 && $record->DoelpuntenTeamUit > -1)?$record->DoelpuntenTeamThuis." - ".$record->DoelpuntenTeamUit:null),
-					'idTeamZaalDienst' => intval($record->TeamIdZaaldienst_01),
+					'idTeamZaalDienst_01' => intval($record->TeamIdZaaldienst_01),
+					'idTeamZaalDienst_02' => intval($record->TeamIdZaaldienst_02),
+					'idTeamZaalDienst_03' => intval($record->TeamIdZaaldienst_03),
+					'idTeamZaalDienst_04' => intval($record->TeamIdZaaldienst_04),
+					'idTeamZaalDienst_05' => intval($record->TeamIdZaaldienst_05),
 				];
 
 				$this->_addToDataArray($wedstrijden, $wedstrijd);
