@@ -289,7 +289,7 @@ class dzsStanden extends HTMLElement
 					table.teams thead th.points,
 					table.teams tbody td.points
 					{
-						width: 75px;
+						width: 80px;
 					}
 
 				table.teams thead th p
@@ -340,7 +340,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 70px;
+						width: 72px;
 					}
 				}
 
@@ -369,7 +369,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 65px;
+						width: 64px;
 					}
 				}
 
@@ -399,7 +399,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 60px;
+						width: 56px;
 					}
 				}
 
@@ -422,7 +422,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 55px;
+						width: 48px;
 					}
 				}
 
@@ -463,7 +463,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 50px;
+						width: 40px;
 					}
 				}
 
@@ -492,7 +492,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 45px;
+						width: 32px;
 					}
 				}
 
@@ -522,7 +522,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 40px;
+						width: 24px;
 					}
 				}
 
@@ -551,7 +551,7 @@ class dzsStanden extends HTMLElement
 					table.teams.overview thead th.points,
 					table.teams.overview tbody td.points
 					{
-						width: 35px;
+						width: 20px;
 					}
 				}
 
@@ -579,20 +579,6 @@ class dzsStanden extends HTMLElement
 					{
 						font-size: 6px;
 						padding: 0.5px;
-					}
-			
-					table.teams.overview thead th.gespeeld,
-					table.teams.overview tbody td.gespeeld,
-					table.teams.overview thead th.gewonnen,
-					table.teams.overview tbody td.gewonnen,
-					table.teams.overview thead th.gelijk,
-					table.teams.overview tbody td.gelijk,
-					table.teams.overview thead th.verloren,
-					table.teams.overview tbody td.verloren,
-					table.teams.overview thead th.points,
-					table.teams.overview tbody td.points
-					{
-						width: 30px;
 					}
 				}
 
