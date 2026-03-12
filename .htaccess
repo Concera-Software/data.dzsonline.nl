@@ -18,6 +18,13 @@ Options -Indexes
     Allow from all
 </Files>
 
+# Disable caching, indexing and archiving of JSON-files via HTTP-headers
+<FilesMatch "\.json$">
+    Header set X-Robots-Tag "noindex, noarchive, nofollow, noimageindex, nosnippet"
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
 
 	# Enable Apache RewriteEngine (if module is available)
