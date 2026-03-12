@@ -302,18 +302,26 @@ class dzsStanden extends HTMLElement
 				{
 					background-color: #E6E6E6;
 				}
-				table.teams font.shortText
-				{
-					display: none;
-				}
 
 				/* Use a smaller font (14px) and padding (0.9px) and narrow the
-				 * columns with points and amount of matches to 70px on screens
-				 * smaller then 1024px, so the full table remains visible. Also. On
-				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 * columns with points and amount of matches to 70px for table with
+				 * class .overview on screens smaller then 1024px, so the full table
+				 * remains visible. Also. On mobile devices, pinch to zoom has to be
+				 * used to enlarge the text.
+				 *
+				 * Also, use a smaller font (13px) and padding (0.85px) for table
+				 * with class .overview on screens smaller then 1024px, so the name
+				 * of teams will be displayed properly.
 				 */
 				@media (max-width: 1024px)
 				{
+					table.teams.summary thead th,
+					table.teams.summary tbody td
+					{
+						font-size: 13px;
+						padding: 0.85px;
+					}
+
 					table.teams.overview thead th,
 					table.teams.overview tbody td
 					{
@@ -337,9 +345,10 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (13px) and narrow the columns with
-				 * points and amount of matches to 65px on screens smaller then
-				 * 960px, so the full table remains visible. Also. On mobile
-				 * devices, pinch to zoom has to be used to enlarge the text.
+				 * points and amount of matches to 65px for table with class
+				 * .overview on screens smaller then 960px, so the full table
+				 * remains visible. Also. On mobile devices, pinch to zoom has to be
+				 * used to enlarge the text.
 				 */
 				@media (max-width: 960px)
 				{
@@ -365,9 +374,10 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (12px) and padding (0.8px) and narrow
-				 * the columns with points and amount of matches to 60px on screens
-				 * smaller then 920px, so the full table remains visible. Also. On
-				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 * the columns with points and amount of matches to 60px for table
+				 * with class .overview on screens smaller then 920px, so the full
+				 * table remains visible. Also. On mobile devices, pinch to zoom has
+				 * to be used to enlarge the text.
 				 */
 				@media (max-width: 920px)
 				{
@@ -394,18 +404,13 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (11px) and narrow the columns with
-				 * points and amount of matches to 55px on screens smaller then
-				 * 860px, so the full table remains visible. Also. On mobile
-				 * devices, pinch to zoom has to be used to enlarge the text.
+				 * points and amount of matches to 55px for table with class
+				 * .overview on screens smaller then 860px, so the full table
+				 * remains visible. Also. On mobile devices, pinch to zoom has to be
+				 * used to enlarge the text.
 				 */
 				@media (max-width: 860px)
 				{
-					table.teams.overview thead th,
-					table.teams.overview tbody td
-					{
-						font-size: 11px;
-					}
-			
 					table.teams.overview thead th.gespeeld,
 					table.teams.overview tbody td.gespeeld,
 					table.teams.overview thead th.gewonnen,
@@ -422,12 +427,24 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (10px) and padding (0.7px) and narrow
-				 * the columns with points and amount of matches to 50px on screens
-				 * smaller then 800px, so the full table remains visible. Also. On
-				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 * the columns with points and amount of matches to 50px for table
+				 * with class .overview on screens smaller then 800px, so the full
+				 * table remains visible. Also. On mobile devices, pinch to zoom has
+				 * to be used to enlarge the text.
+				 *
+				 * Also, use a smaller font (11px) and padding (0.75px) for table
+				 * with class .overview on screens smaller then 800px, so the name
+				 * of teams will be displayed properly.
 				 */
 				@media (max-width: 800px)
 				{
+					table.teams.summary thead th,
+					table.teams.summary tbody td
+					{
+						font-size: 11px;
+						padding: 0.75px;
+					}
+
 					table.teams.overview thead th,
 					table.teams.overview tbody td
 					{
@@ -451,16 +468,17 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (9px) and narrow the columns with
-				 * points and amount of matches to 45px on screens smaller then
-				 * 720px, so the full table remains visible. Also. On mobile
-				 * devices, pinch to zoom has to be used to enlarge the text.
+				 * points and amount of matches to 45px for table with class
+				 * .overview on screens smaller then 720px, so the full table
+				 * remains visible. Also. On mobile devices, pinch to zoom has to be
+				 * used to enlarge the text.
 				 */
 				@media (max-width: 720px)
 				{
 					table.teams.overview thead th,
 					table.teams.overview tbody td
 					{
-						font-size: ;
+						font-size: 9px;
 					}
 			
 					table.teams.overview thead th.gespeeld,
@@ -479,9 +497,10 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (8px) and padding (0.6px) and narrow
-				 * the columns with points and amount of matches to 40px on screens
-				 * smaller then 660px, so the full table remains visible. Also. On
-				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 * the columns with points and amount of matches to 40px for table
+				 * with class .overview on screens smaller then 660px, so the full
+				 * table remains visible. Also. On mobile devices, pinch to zoom has
+				 * to be used to enlarge the text.
 				 */
 				@media (max-width: 660px)
 				{
@@ -508,9 +527,10 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (7px) and narrow the columns with
-				 * points and amount of matches to 35px on screens smaller then
-				 * 600px, so the full table remains visible. Also. On mobile
-				 * devices, pinch to zoom has to be used to enlarge the text.
+				 * points and amount of matches to 35px for table with class
+				 * .overview on screens smaller then 600px, so the full table
+				 * remains visible. Also. On mobile devices, pinch to zoom has to be
+				 * used to enlarge the text.
 				 */
 				@media (max-width: 600px)
 				{
@@ -536,12 +556,24 @@ class dzsStanden extends HTMLElement
 				}
 
 				/* Use an even smaller font (6px) and padding (0.5px) and narrow
-				 * the columns with points and amount of matches to 30px on screens
-				 * smaller then 540px, so the full table remains visible. Also. On
-				 * mobile devices, pinch to zoom has to be used to enlarge the text.
+				 * the columns with points and amount of matches to 30px for table
+				 * with class .overview on screens smaller then 540px, so the full
+				 * table remains visible. Also. On mobile devices, pinch to zoom has
+				 * to be used to enlarge the text.
+				 *
+				 * Also, use a smaller font (9px) and padding (0.65px) for table
+				 * with class .overview on screens smaller then 540px, so the name
+				 * of teams will be displayed properly.
 				 */
 				@media (max-width: 540px)
 				{
+					table.teams.summary thead th,
+					table.teams.summary tbody td
+					{
+						font-size: 9px;
+						padding: 0.65px;
+					}
+
 					table.teams.overview thead th,
 					table.teams.overview tbody td
 					{
@@ -611,7 +643,7 @@ class dzsStanden extends HTMLElement
 		//
 		if(attrDisplay == 'summary')
 		{	
-			template += `<table class='teams'>
+			template += `<table class='teams summary'>
 				<thead>
 					<tr>
 						<th colspan="2" style='text-align: left'>
@@ -676,9 +708,9 @@ class dzsStanden extends HTMLElement
 							<th class='gewonnen'>Gewonnen</th>
 							<th class='gelijk'>Gelijk</th>
 							<th class='verloren'>Verloren</th>
-							<th class='points'><font class='shortText'>+</font><font class='longText'>Voor</font></th>
-							<th class='points'><font class='shortText'>-</font><font class='longText'>Tegen</font></th>
-							<th class='points'><font class='shortText'>Pt.</font><font class='longText'>Punten</font></th>
+							<th class='points'>Voor</th>
+							<th class='points'>Tegen</th>
+							<th class='points'>Punten</th>
 						</tr>
 					</thead>
 					<tbody>`;
@@ -1237,8 +1269,8 @@ class dzsWedstrijden extends HTMLElement
 				<thead>
 					<tr>
 						<th class='zaal'>Zaal</th>
-						<th class='datum'><font class='shortText'>Dag</font><font class='longText'>Datum</font></th>
-						<th class='tijd'><font class='shortText'>Tijd</font><font class='longText'>Aanvang</font></th>
+						<th class='datum'>Datum</th>
+						<th class='tijd'>Aanvang</th>
 						<th class='klasse'>Kls.</th>
 						<th>Team Thuis</th>
 						<th>Team Uit</th>`;
@@ -1276,7 +1308,7 @@ class dzsWedstrijden extends HTMLElement
 
 					template += `<tr id='dzs-game-${wedstrijd['id']}'>
 						<td class='zaal'>${dataInstance.getZaalName(wedstrijd['idZaal'])}</td>
-						<td class='datum'><font class=\'shortText\'>${wedstrijd['datum'].substr(0, 5)}&nbsp;</font><font class=\'longText\'>${wedstrijd['datum']}</font></td>
+						<td class='datum'>${wedstrijd['datum']}</td>
 						<td class='tijd'>${wedstrijd['tijd'].substr(0, 5)}&nbsp;</td>
 						<td class='klasse'>${dataInstance.getKlasseName(wedstrijd['idKlasse'])}</td>
 						<td><div class="clamp">${dataInstance.getTeamName(wedstrijd['idTeamThuis'])}</div></td>
